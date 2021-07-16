@@ -8,10 +8,10 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
 # add app
-COPY ./frontend ./
+COPY ./backend ./
 
 RUN npm install --silent
-RUN npm run build
+RUN chmod +x start.sh
 
 # start app
-CMD ["npm", "start"]
+CMD ["sh", "start.sh"]
