@@ -18,7 +18,7 @@ stages:          # List of stages for jobs, and their order of execution
 #  - test
 #  - deploy
 
-build-frontend:
+build:
   # Use the official docker image.
   image: docker:latest
   stage: build
@@ -38,8 +38,8 @@ build-frontend:
         echo "Running on branch '$CI_COMMIT_BRANCH': tag = $tag"
       fi
     # Frontend Image Build
-    - docker build --pull -t "front-$CI_REGISTRY_IMAGE${tag}" -f ./build/frontend.Dockerfile .
-    - docker push "front-$CI_REGISTRY_IMAGE${tag}"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE${tag}-front" -f ./build/frontend.Dockerfile .
+    - docker push "$CI_REGISTRY_IMAGE${tag}-front"
     # Backend Image build
-    - docker build --pull -t "back-$CI_REGISTRY_IMAGE${tag}" -f ./build/backend.Dockerfile .
-    - docker push "back-$CI_REGISTRY_IMAGE${tag}"
+    - docker build --pull -t "back-$CI_REGISTRY_IMAGE${tag}-back" -f ./build/backend.Dockerfile .
+    - docker push "back-$CI_REGISTRY_IMAGE${tag}-back"
