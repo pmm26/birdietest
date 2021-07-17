@@ -14,17 +14,17 @@ module.exports = {
     Error: {
       additionalProperties: true,
     },
-    User: {
+    Event: {
       properties: {
         name: {
           type: 'string',
         },
-        friends: {
-          type: 'array',
-          items: {
-            $ref: '#/definitions/User',
-          },
-        },
+        // friends: {
+        //   type: 'array',
+        //   items: {
+        //     $ref: '#/definitions/Event',
+        //   },
+        // },
       },
       required: ['name'],
     },
@@ -38,6 +38,6 @@ module.exports = {
   tags: [
     // {name: 'creating'} will be inserted by ./api-routes/users.js
     // {name: 'fooey'} will be inserted by ./api-routes/users/{id}.js
-    { description: 'Everything users', name: 'users' },
+    { description: 'Care Events', name: 'events' },
   ],
 };

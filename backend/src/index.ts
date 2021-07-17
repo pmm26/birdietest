@@ -4,7 +4,6 @@ const openapi = require("express-openapi");
 const cors = require("cors");
 const swaggerUi = require('swagger-ui-express');
 const path = require('path');
-
 const port = process.env.PORT || 8000;
 
 app.use(cors());

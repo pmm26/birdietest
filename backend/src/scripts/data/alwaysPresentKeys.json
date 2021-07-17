@@ -1,0 +1,8 @@
+{
+  "keys": [
+    "id",
+    "timestamp",
+    "event_type",
+    "care_recipient_id"
+  ]
+}
