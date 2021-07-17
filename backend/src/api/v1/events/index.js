@@ -1,6 +1,6 @@
 const eventsController = require('../../../controllers/events')
 
-let get = eventsController.fetchEvents
+let get = eventsController.getEvents
 
 get.apiDoc = {
   description: "Fetch a new user.",

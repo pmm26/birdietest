@@ -8,6 +8,7 @@ const generateListOfDbAttributes = async () => {
   const eventsPayload = rawEvents[0].map((e) => e.payload);
 
   let allPossibleKeys = [];
+  let allPossibleKeysWithExample = [];
   let eventTypes = {};
   let eventTypesRelevantAttributes = {};
 
@@ -19,6 +20,7 @@ const generateListOfDbAttributes = async () => {
       // console.log(key)
       if (!allPossibleKeys.includes(key)) {
         allPossibleKeys.push(key);
+        allPossibleKeysWithExample.push({[key]: obj[key]})
       }
     });
 
@@ -60,6 +62,11 @@ const generateListOfDbAttributes = async () => {
   await fs.writeFileSync(
     "src/scripts/data/allPossibleKeys.json",
     JSON.stringify({ keys: allPossibleKeys })
+  );
+
+  await fs.writeFileSync(
+    "src/scripts/data/allPossibleKeysWithExample.json",
+    JSON.stringify({ keys: allPossibleKeysWithExample })
   );
 
   await fs.writeFileSync(
