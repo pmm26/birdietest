@@ -1,5 +1,5 @@
 import * as express from "express";
-
+// import mysql from "../database/mysql"
 export const pingController = express.Router();
 
 pingController.get('/hello', (_, res) => {
