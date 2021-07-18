@@ -1,11 +1,15 @@
-const Events = require('../models/Events')
+const Events = require("../models/Events");
+const db = require("../util/mysql");
+
+module.exports.getEvents = async (req, res, next) => {
+  console.log(req.query);
+  const events = await Events.fetchAll(req.query)
+
+  console.log(events);
+  // console.log(events.length);
 
 
-module.exports.getEvents = async (req, res, next) =>  {
-  const events = await Events.fetchAll()
-  console.log(events)
-  
   res.status(200).json({
-    greetings: 'Thank you for spending some time on this test. All the best 🙌'
+    data: events,
   });
-}
+};

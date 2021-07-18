@@ -1,0 +1,81 @@
+tags:
+  - events
+summary: searches events
+operationId: searchEvents
+description: |
+  By passing in the appropriate options, you can search for
+  available events in the system
+parameters:
+  
+  - in: query
+    name: page
+    description: Page number
+    schema:
+      type: integer
+      format: int32
+
+  - in: query
+    name: per_page
+    description: Maximum number of records to return
+    schema:
+      type: integer
+      format: int32
+
+  - in: query
+    name: filter[event_type]
+    schema:
+      type: string
+      format: enum
+
+  - in: query
+    name: filter[care_recipient_id]
+    schema:
+      type: string
+      format: uuid
+
+  - in: query
+    name: filter[alert_id]
+    schema:
+      type: string
+      format: uuid
+
+  - in: query
+    name: filter[task_instance_id]
+    schema:
+      type: string
+
+  - in: query
+    name: filter[visit_id]
+    schema:
+      type: string
+      format: uuid
+
+  - in: query
+    name: filter[caregiver_id]
+    schema:
+      type: string
+      format: uuid
+
+  - in: query
+    name: filter[rejected_event_id]
+    schema:
+      type: string
+      format: uuid
+
+  - in: query
+    name: filter[observation_event_id]
+    schema:
+      type: string
+      format: uuid
+
+responses:
+  '200':
+    description: search results matching criteria
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+  '400':
+    description: bad input parameter

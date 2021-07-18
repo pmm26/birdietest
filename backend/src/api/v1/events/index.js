@@ -1,35 +1,11 @@
-const eventsController = require('../../../controllers/events')
+const eventsController = require("../../../controllers/events");
 
-let get = eventsController.getEvents
+let get = eventsController.getEvents;
+const YAML= require('yamljs')
 
-get.apiDoc = {
-  description: "Fetch a new user.",
-  tags: ["events"],
-  parameters: [
-    // {  
-    //   in: "body",
-    //   name: "todo",
-    //   schema: {
-    //     $ref: "#/definitions/User",
-    //   },
-    // },
-  ],
-  summary: "Fetch events.",
-  operationId: "getEvents",
-  responses: {
-    200: {
-      description: "List of Events.",
-      schema: {
-        type: "array",
-        items: {
-          $ref: "#/definitions/Event",
-        },
-      },
-    },
-  },
-};
+get.apiDoc = YAML.load('src/api/v1/events/get.yml')
+
 
 module.exports = {
   get: get,
 };
-

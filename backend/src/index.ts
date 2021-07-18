@@ -6,13 +6,17 @@ const swaggerUi = require('swagger-ui-express');
 const path = require('path');
 const port = process.env.PORT || 8000;
 
+const YAML= require('yamljs')
+const doc = YAML.load('src/api/api-doc.yml')
+
 app.use(cors());
 app.use(bodyParser.json());
 
+// console.log(doc)
 // Hosts the doc file at /v1/api-docs to be used by swagger
 openapi.initialize({
   app,
-  apiDoc: require("./api/api-doc"),
+  apiDoc: doc,
   paths: path.resolve(__dirname, "api/v1"),
 });
 

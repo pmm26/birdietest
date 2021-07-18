@@ -21,8 +21,10 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-openapi": "^9.1.0",
+    "js-yaml": "^3.14.1",
     "mysql2": "^2.2.5",
-    "swagger-ui-express": "^4.1.6"
+    "swagger-ui-express": "^4.1.6",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
