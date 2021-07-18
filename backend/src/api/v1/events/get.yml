@@ -24,7 +24,8 @@ parameters:
       default: 25
 
   - in: query
-    name: Timestamp order
+    name: order
+    description: Order of events timestamp
     schema:
       type: string
       enum: [asc, desc]

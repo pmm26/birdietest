@@ -23,6 +23,7 @@
     "express-openapi": "^9.1.0",
     "js-yaml": "^3.14.1",
     "mysql2": "^2.2.5",
+    "permit-params": "^1.0.1",
     "swagger-ui-express": "^4.1.6",
     "yamljs": "^0.3.0"
   },
