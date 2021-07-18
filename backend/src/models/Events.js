@@ -1,33 +1,30 @@
 const db = require('../util/mysql');
 
 module.exports = class Events {
-  static async fetchAll(query) {
+  static async fetchAll({ filter = {}, page = 1, per_page = 25, order = 'DESC' }) {
+    // Not the cleanest implementation but it does the job
+    // If I were to do it again I would have used squelize 
     try {
-    const page = query.page || 1;
-    const per_page = query.per_page || 25;
+      let sqlQuery = "SELECT * FROM events"
+      let filerKeys
+      // WHERE
+      if (filter && (filerKeys = Object.keys(filter)).length != 0) {
+        sqlQuery += ` WHERE (${filerKeys.join(' = ? AND ')} = ? )`
+      }
 
-    let sqlQuery = "SELECT * FROM events"
-    
-    const filter = query.filter
-    let filerKeys;
-    if (filter && (filerKeys = Object.keys(filter)).length != 0) {
-      sqlQuery += ` WHERE (${filerKeys.join(' = ? AND ')} = ? )`
-    }
+      // Order and Pagination
+      sqlQuery += ` ORDER BY timestamp ${order} LIMIT ?,?`
 
-    sqlQuery += " ORDER BY timestamp DESC LIMIT ?,?"
+      const valuesArray = [
+        ...(filter ? Object.values(filter) : []), // Add the values for the where
+        (page - 1) * per_page,
+        per_page
+      ]
 
-    console.log(sqlQuery)
+      const rawEvents = await db.execute(sqlQuery, valuesArray);
 
-    const valuesArray =  [
-      ...(filter ? Object.values(filter) : []), 
-      (page-1)*per_page, per_page]
-
-
-    console.log(valuesArray)
-    const rawEvents = await db.execute(sqlQuery, valuesArray);
-
-    return rawEvents[0].map((e) => e.payload);
-    } catch(err) {
+      return rawEvents[0].map((e) => e.payload);
+    } catch (err) {
       console.log(err)
     }
   }
@@ -35,11 +32,4 @@ module.exports = class Events {
   static findById(id) {
     return db.execute('SELECT * FROM events WHERE events.id = ?', [id]);
   }
-
-  // static findBy() {
-  //   const mac = req.query.mac; 
-  //   const macArr = mac.split(',');
-  //   var sql =  mysql.format("SELECT * FROM user_email WHERE macId IN (?)", macArr);
-  //   db.execute(sql, function(err, row) ...{ ... .. }
-  // }
 };

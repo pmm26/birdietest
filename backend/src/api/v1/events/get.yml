@@ -13,6 +13,7 @@ parameters:
     schema:
       type: integer
       format: int32
+      default: 1
 
   - in: query
     name: per_page
@@ -20,6 +21,15 @@ parameters:
     schema:
       type: integer
       format: int32
+      default: 25
+
+  - in: query
+    name: Timestamp order
+    schema:
+      type: string
+      enum: [asc, desc]
+      default: 'desc'
+
 
   - in: query
     name: filter[event_type]
