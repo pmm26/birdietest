@@ -2,6 +2,8 @@ tags:
   - events
 summary: searches events
 operationId: searchEvents
+security:
+  - ApiKeyAuth: []
 description: |
   By passing in the appropriate options, you can search for
   available events in the system

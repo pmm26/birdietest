@@ -6,7 +6,7 @@ info:
   version: "1.0.0"
   title: Birdie Test API
   contact:
-    email: contact@prck.me
+    email: pmm26@protonmail.com
 
 tags:
   - name: events
@@ -15,6 +15,12 @@ tags:
 paths: {}
 
 components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      
   schemas:
     Event:
       type: object
