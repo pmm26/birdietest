@@ -1,10 +1,10 @@
 const Events = require("../models/Events");
-const db = require("../util/mysql");
 const permitParams = require("permit-params");
+import {Request, Response, NextFunction} from 'express';
 
-module.exports.getEvents = async (req, res, next) => {
+module.exports.getEvents = async (req : Request, res: Response, next: NextFunction) => {
   try {
-    strongParams = permitParams.default(
+    const strongParams : Object = permitParams.default(
       req.query,
       "page",
       "per_page",
@@ -26,7 +26,7 @@ module.exports.getEvents = async (req, res, next) => {
     const events = await Events.fetchAll(strongParams);
 
     res.status(200).json(events);
-  } catch (err) {
+  } catch (err: any) {
     if (!err.statusCode) {
       err.statusCode = 500;
     }

@@ -8,9 +8,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const path = require("path");
-
 const openapi = require("express-openapi");
-
 const yaml = require('js-yaml');
 const fs   = require('fs');
 
@@ -34,7 +32,7 @@ openapi.initialize({
   securityHandlers: {
     ApiKeyAuth: function (req: any, _scopes: any, _definition: any) {
       console.log(req.headers);
-      if (req.headers["x-api-key"] != "biediekey") {
+      if (req.headers["x-api-key"] !== process.env.API_KEY) {
         throw {
           status: 401,
           message: "You must authenticate to access birdie api.",
@@ -63,8 +61,5 @@ app.use((err: any, _req: any, res: any, _next: any) => {
     errors: err.errors,
   });
 });
-
-
-
 
 export default app;

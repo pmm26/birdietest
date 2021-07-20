@@ -1,3 +1,12 @@
+# Disclaimer
+I saw this test as an oppurtunity to show my skills. It may not be the best and quickest way of archiving the desired goal. I have included as many relevant technologies that I'm familiar with. 
+Some may not make sence to use in such a small project.
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

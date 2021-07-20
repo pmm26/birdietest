@@ -26,18 +26,22 @@ components:
       type: object
       required:
         - id
-        - name
-        - manufacturer
-        - releaseDate
+        - timestamp
+        - event_type
+        - care_recipient_id
       properties:
         id:
           type: string
           format: uuid
           example: d290f1ee-6c54-4b01-90e6-d701748f0851
-        name:
+        care_recipient_id:
           type: string
-          example: Widget Adapter
-        releaseDate:
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        event_type:
+          type: string
+          example: fluid_intake_observation
+        timestamp:
           type: string
           format: date-time
           example: '2016-08-29T09:12:33.001Z'

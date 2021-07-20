@@ -90,5 +90,25 @@ responses:
           type: array
           items:
             $ref: '#/components/schemas/Event'
-  '400':
-    description: bad input parameter
+  '401':
+    description: Unauthorized
+    content:
+      application/json:
+        schema:
+          properties:
+            message:
+              type: string
+              example: You must authenticate to access birdie api.  
+  '500':
+    description: Error
+    content:
+      application/json:
+        schema:
+          properties: 
+            message:
+              type: string
+              description: Error message
+              example: An error message
+            errors:
+              type: object
+              description: Some errors
