@@ -32,9 +32,9 @@ build-front:
   # Default branch leaves tag empty (= latest tag)
   # All other branches are tagged with the escaped branch name (commit ref slug)
   script:
-    - docker build -f ./build/frontend.Dockerfile -t $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG -t $CI_APPLICATION_REPOSITORY:latest .
-    - docker push $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG
-    - docker push $CI_APPLICATION_REPOSITORY:latest
+    - docker build -f ./build/frontend.Dockerfile -t $CI_APPLICATION_REPOSITORY:front-$CI_APPLICATION_TAG -t $CI_APPLICATION_REPOSITORY:front-latest .
+    - docker push $CI_APPLICATION_REPOSITORY:front-$CI_APPLICATION_TAG
+    - docker push $CI_APPLICATION_REPOSITORY:front-latest
 
 
 build-back:
@@ -48,14 +48,7 @@ build-back:
   # Default branch leaves tag empty (= latest tag)
   # All other branches are tagged with the escaped branch name (commit ref slug)
   script:
-    - |
-      if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
-        tag=":back-latest"
-        echo "Running on default branch '$CI_DEFAULT_BRANCH': tag = 'latest'"
-      else
-        tag=":back-$CI_COMMIT_REF_SLUG"
-        echo "Running on branch '$CI_COMMIT_BRANCH': tag = $tag"
-      fi
-    # Backend Image build
-    - docker build --pull -t "$CI_REGISTRY_IMAGE${tag}" -f ./build/backend.Dockerfile .
-    - docker push "$CI_REGISTRY_IMAGE${tag}"
+    - docker build -f ./build/frontend.Dockerfile -t $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG -t $CI_APPLICATION_REPOSITORY:back-latest .
+    - docker push $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG
+    - docker push $CI_APPLICATION_REPOSITORY:back-latest
+    - echo $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG
