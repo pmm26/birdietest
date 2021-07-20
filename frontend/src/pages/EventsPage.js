@@ -8,6 +8,7 @@ const EventsPage = (props) => {
   const dispatch = useDispatch()
 
   const test = () => {
+    
   }
 
   const test2 = () => {

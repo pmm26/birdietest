@@ -12,7 +12,9 @@ const generateListOfDbAttributes = async () => {
   let allPossibleKeysWithExample = [];
   let eventTypes = {};
   let eventTypesRelevantAttributes = {};
+  let eventTypesRelevantAttributes2 = {};
   let allRelevantAttributes = []
+
 
   let tempObj;
   eventsPayload.forEach((obj) => {
@@ -46,6 +48,20 @@ const generateListOfDbAttributes = async () => {
         }
       });
       eventTypesRelevantAttributes[obj.event_type] = tempObj;
+    }
+
+        // List of relevant Attribues for each event type (doesn't include ids)
+    // To be used in the FrontEnd
+    if (!eventTypesRelevantAttributes2.hasOwnProperty(obj.event_type)) {
+      tempObj = { ...obj };
+      Object.keys(tempObj).forEach((key1) => {
+        if (key1.endsWith("_id") || key1.endsWith("navigation") || key1.endsWith("screenProps") || 
+        key1.endsWith("id") || key1.endsWith("timestamp") || key1.endsWith("event_type") || 
+        key1.endsWith("care_recipient_id")) {
+          delete tempObj[key1];
+        }
+      });
+      eventTypesRelevantAttributes2[obj.event_type] = tempObj;
     }
   });
 
@@ -101,6 +117,16 @@ const generateListOfDbAttributes = async () => {
       eventTypes: eventTypesRelevantAttributes,
     })
   );
+
+  await fs.writeFileSync(
+    "src/scripts/data/event-types-relevant-attributes2.json",
+    JSON.stringify({
+      count: Object.keys(eventTypes).length,
+      eventTypes: eventTypesRelevantAttributes2,
+    })
+  );
+
+  
 
   await fs.writeFileSync(
     "src/scripts/data/all-relevant-attributes.json",
