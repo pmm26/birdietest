@@ -1,0 +1,32 @@
+{
+  "count": 26,
+  "eventTypes": [
+    { "id": "00114a9f-00dc-4f39-a6ac-af1b7e0543e7" },
+    { "fluid": "caffeinated" },
+    { "observed": false },
+    { "timestamp": "2019-04-26T07:08:21.758Z" },
+    { "event_type": "fluid_intake_observation" },
+    { "consumed_volume_ml": 230 },
+    { "task_schedule_note": "Please assist me to brush my teeth" },
+    { "task_definition_description": "Assist with oral hygiene" },
+    { "note": "[redacted] is well. " },
+    { "mood": "okay" },
+    { "medication_type": "SCHEDULED" },
+    { "expected_dose_timestamp": "2019-04-24T11:00:00.000Z" },
+    { "observations": [] },
+    { "pad_condition": "soiled" },
+    { "media": [] },
+    { "medication_failure_reason": "OTHER" },
+    { "meal": "meal" },
+    { "type": "SCHEDULED" },
+    {
+      "rrule": "DTSTART:20190405T180000ZRRULE:FREQ=DAILY;INTERVAL=1;BYHOUR=8,12,16,20;WKST=MO;UNTIL=20190429T140000Z;BYMINUTE=0;BYSECOND=0"
+    },
+    { "dose_size": "To be spread on infected area " },
+    { "alert_severity": "LOW" },
+    { "severity": "MEDIUM" },
+    { "volume_ml": 700 },
+    { "visit_type": "bowel" },
+    { "visit_count": 3 }
+  ]
+}

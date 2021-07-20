@@ -10,7 +10,7 @@ export const fetchEvents = () => {
 
     }).then(data => {
       console.log(data)
-      dispatch({ type: FETCH_EVENTS, events: data.data, maxPages: data.max_pages});
+      dispatch({ type: FETCH_EVENTS, events: data.data.data, maxPages: data.data.max_pages});
     }).catch(err => {
       console.log(err)
     })

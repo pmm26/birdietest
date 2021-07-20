@@ -1,9 +1,10 @@
 require("dotenv").config();
 const fs = require("fs");
-const Events = require("../models/Events");
+const db = require("../util/mysql");
 
 const generateListOfDbAttributes = async () => {
-  const rawEvents = await Events.fetchAll();
+  
+  const rawEvents = await db.execute('SELECT * FROM events');
 
   const eventsPayload = rawEvents[0].map((e) => e.payload);
 
@@ -11,18 +12,24 @@ const generateListOfDbAttributes = async () => {
   let allPossibleKeysWithExample = [];
   let eventTypes = {};
   let eventTypesRelevantAttributes = {};
+  let allRelevantAttributes = []
 
   let tempObj;
   eventsPayload.forEach((obj) => {
-    
+
     // List of all possible Keys
     Object.keys(obj).forEach((key) => {
       // console.log(key)
       if (!allPossibleKeys.includes(key)) {
         allPossibleKeys.push(key);
-        allPossibleKeysWithExample.push({[key]: obj[key]})
+        allPossibleKeysWithExample.push({ [key]: obj[key] })
+        if (!(key.endsWith("_id") || key.endsWith("navigation") || key.endsWith("screenProps"))) {
+          allRelevantAttributes.push({ [key]: obj[key] })
+        }
       }
     });
+
+
 
     // List of examples for each event type.
     if (!eventTypes.hasOwnProperty(obj.event_type)) {
@@ -39,13 +46,13 @@ const generateListOfDbAttributes = async () => {
         }
       });
       eventTypesRelevantAttributes[obj.event_type] = tempObj;
-    } 
+    }
   });
 
   // Keys that are present in all entries
   let alwaysPresentKeys = [...allPossibleKeys];
   eventsPayload.forEach((obj) => {
-    var absent = allPossibleKeys.filter(e=>!Object.keys(obj).includes(e));
+    var absent = allPossibleKeys.filter(e => !Object.keys(obj).includes(e));
     absent.forEach(ab => {
       alwaysPresentKeys = alwaysPresentKeys.filter(value => value != ab);
     })
@@ -92,6 +99,14 @@ const generateListOfDbAttributes = async () => {
     JSON.stringify({
       count: Object.keys(eventTypes).length,
       eventTypes: eventTypesRelevantAttributes,
+    })
+  );
+
+  await fs.writeFileSync(
+    "src/scripts/data/all-relevant-attributes.json",
+    JSON.stringify({
+      count: Object.keys(eventTypes).length,
+      eventTypes: allRelevantAttributes,
     })
   );
 

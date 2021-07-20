@@ -96,19 +96,13 @@
           "key": "id-1556546041168-108",
           "index": 0,
           "routes": [
-            {
-              "key": "id-1556546041168-107",
-              "routeName": "ItemSelection"
-            }
+            { "key": "id-1556546041168-107", "routeName": "ItemSelection" }
           ],
           "routeName": "incontinence_pad_observation",
           "isTransitioning": false
         },
         "router": {
-          "childRouters": {
-            "NoteTaking": null,
-            "ItemSelection": null
-          }
+          "childRouters": { "NoteTaking": null, "ItemSelection": null }
         },
         "actions": {},
         "_childrenNavigation": {
@@ -267,9 +261,7 @@
         "state": {
           "key": "id-1557223169498-82",
           "index": 0,
-          "params": {
-            "recipientId": "e3e2bff8-d318-4760-beea-841a75f00227"
-          },
+          "params": { "recipientId": "e3e2bff8-d318-4760-beea-841a75f00227" },
           "routes": [
             {
               "key": "id-1557223169498-81",
@@ -283,10 +275,7 @@
           "isTransitioning": false
         },
         "router": {
-          "childRouters": {
-            "NoteTaking": null,
-            "ItemSelection": null
-          }
+          "childRouters": { "NoteTaking": null, "ItemSelection": null }
         },
         "actions": {},
         "_childrenNavigation": {
@@ -302,9 +291,7 @@
           }
         }
       },
-      "screenProps": {
-        "role": "ROLE_EAGLE"
-      },
+      "screenProps": { "role": "ROLE_EAGLE" },
       "caregiver_id": "d8d66637-c3d6-4c58-a254-3b274a031fec",
       "observations": [],
       "care_recipient_id": "e3e2bff8-d318-4760-beea-841a75f00227"
