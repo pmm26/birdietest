@@ -1,6 +1,9 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchEvents } from '../store/actions/events'
+import EventEntry from '../components/EventEntry'
+import styled from 'styled-components'
+
 
 const EventsPage = (props) => {
   const events = useSelector((state) => state.events.events);
@@ -21,18 +24,7 @@ const EventsPage = (props) => {
 
   return (
     <>
-      {events.map(element => (
-        <>
-          <div>
-            Id:
-            {element.id}
-          </div>
-          <div>
-            Type:
-            {element.event_type}
-          </div>
-        </>
-      ))}
+      {events.map(element => <EventEntry {...element} />)}
       <button onClick={test2}>
         Print State
       </button>

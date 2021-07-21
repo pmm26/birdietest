@@ -48,7 +48,7 @@ build-back:
   # Default branch leaves tag empty (= latest tag)
   # All other branches are tagged with the escaped branch name (commit ref slug)
   script:
-    - docker build -f ./build/frontend.Dockerfile -t $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG -t $CI_APPLICATION_REPOSITORY:back-latest .
+    - docker build -f ./build/backend.Dockerfile -t $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG -t $CI_APPLICATION_REPOSITORY:back-latest .
     - docker push $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG
     - docker push $CI_APPLICATION_REPOSITORY:back-latest
     - echo $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG
