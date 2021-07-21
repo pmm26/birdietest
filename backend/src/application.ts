@@ -14,9 +14,10 @@ const fs   = require('fs');
 
 const port = process.env.PORT || 8000;
 
+// Fetch OpenApi Doc
 let doc 
 try {
-  doc = yaml.load(fs.readFileSync(path.resolve(__dirname, "api/api-doc.yml"), 'utf8'));
+  doc = yaml.load(fs.readFileSync(path.resolve(__dirname, "api-docs/api-doc.yml"), 'utf8'));
 } catch (e) {
   console.log(e);
 }
@@ -28,7 +29,10 @@ app.use(pingController);
 openapi.initialize({
   app,
   apiDoc: doc,
-  paths: path.resolve(__dirname, "api/v1"),
+  // Adding our controller
+  paths:[
+    { path: '/events', module: require('./controllers/events') },
+  ],
   securityHandlers: {
     ApiKeyAuth: function (req: any, _scopes: any, _definition: any) {
       console.log(req.headers);
@@ -44,16 +48,18 @@ openapi.initialize({
   },
 });
 
+// Loading Swagger
 app.use(
   "/api-documentation",
   swaggerUi.serve,
   swaggerUi.setup(null, {
     swaggerOptions: {
-      url: `http://localhost:${port}/v1/api-docs`,
+      url: `${process.env.BASE_URL}:${port}/v1/api-docs`,
     },
   })
 );
 
+// Error Handling
 app.use((err: any, _req: any, res: any, _next: any) => {
   // format error
   res.status(err.status || 500).json({

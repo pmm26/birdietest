@@ -19,9 +19,6 @@
     { "medication_failure_reason": "OTHER" },
     { "meal": "meal" },
     { "type": "SCHEDULED" },
-    {
-      "rrule": "DTSTART:20190405T180000ZRRULE:FREQ=DAILY;INTERVAL=1;BYHOUR=8,12,16,20;WKST=MO;UNTIL=20190429T140000Z;BYMINUTE=0;BYSECOND=0"
-    },
     { "dose_size": "To be spread on infected area " },
     { "alert_severity": "LOW" },
     { "severity": "MEDIUM" },

@@ -1,10 +1,12 @@
+
+const YAML = require('yamljs')
 const Events = require("../models/Events");
 const permitParams = require("permit-params");
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 
-module.exports.getEvents = async (req : Request, res: Response, next: NextFunction) => {
+const getEvents = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const strongParams : Object = permitParams.default(
+    const strongParams: Object = permitParams.default(
       req.query,
       "page",
       "per_page",
@@ -33,3 +35,10 @@ module.exports.getEvents = async (req : Request, res: Response, next: NextFuncti
     next(err);
   }
 };
+
+
+module.exports = {
+  get: getEvents,
+};
+
+module.exports.get.apiDoc = YAML.load('src/api-docs/v1/events/get.yml')
