@@ -1,6 +1,7 @@
 openapi: 3.0.0
 servers:
   - url: /v1
+  - url: http://birdieapi.prck.me/v1
 info:
   description: This is a Birdie Test API
   version: "1.0.0"
