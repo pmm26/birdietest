@@ -11,6 +11,8 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import eventsReducer from './store/reducer/events';
 import EventsPage from './pages/EventsPage';
 
+import 'react-calendar/dist/Calendar.css';
+
 const AppContainer = styled.div`
   display: flex;
   flex-flow: column;

@@ -22,9 +22,13 @@ const getEvents = async (req: Request, res: Response, next: NextFunction) => {
           "rejected_event_id",
           "observation_event_id",
         ],
+        dates: [
+          "start_date",
+          "end_date"
+        ]
       }
     );
-
+      console.log(strongParams)
     const events = await Events.fetchAll(strongParams);
 
     res.status(200).json(events);

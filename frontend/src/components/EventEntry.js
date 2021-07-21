@@ -25,7 +25,6 @@ const EventsPage = (props) => {
   }
 
   const humanizeEventType = (event_type) => {
-    console.log(props)
     let string = event_type.split('_').join(' ')
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -36,6 +35,8 @@ const EventsPage = (props) => {
         {humanizeEventType(props.event_type)}
       </EventTypeBox>
       <InfoBox>
+        <InfoText title="ID" value={props.id}/>
+
         <InfoText title="Observed" value={props.observed}/>
 
         {/* fluid_intake */}

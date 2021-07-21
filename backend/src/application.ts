@@ -35,7 +35,6 @@ openapi.initialize({
   ],
   securityHandlers: {
     ApiKeyAuth: function (req: any, _scopes: any, _definition: any) {
-      console.log(req.headers);
       if (req.headers["x-api-key"] !== process.env.API_KEY) {
         throw {
           status: 401,
@@ -61,6 +60,7 @@ app.use(
 
 // Error Handling
 app.use((err: any, _req: any, res: any, _next: any) => {
+  console.log(err)
   // format error
   res.status(err.status || 500).json({
     message: err.message,
