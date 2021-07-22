@@ -21,37 +21,37 @@ stages:
   # - test
   - deploy
 
-build-front:
-  # Use the official docker image.
-  image: docker:latest
-  stage: build
-  services:
-    - docker:dind
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-  # Default branch leaves tag empty (= latest tag)
-  # All other branches are tagged with the escaped branch name (commit ref slug)
-  script:
-    - docker build -f ./build/frontend.Dockerfile -t $CI_APPLICATION_REPOSITORY:front-$CI_APPLICATION_TAG -t $CI_APPLICATION_REPOSITORY:front-latest .
-    - docker push $CI_APPLICATION_REPOSITORY:front-$CI_APPLICATION_TAG
-    - docker push $CI_APPLICATION_REPOSITORY:front-latest
+# build-front:
+#   # Use the official docker image.
+#   image: docker:latest
+#   stage: build
+#   services:
+#     - docker:dind
+#   before_script:
+#     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+#   # Default branch leaves tag empty (= latest tag)
+#   # All other branches are tagged with the escaped branch name (commit ref slug)
+#   script:
+#     - docker build -f ./build/frontend.Dockerfile -t $CI_APPLICATION_REPOSITORY:front-$CI_APPLICATION_TAG -t $CI_APPLICATION_REPOSITORY:front-latest .
+#     - docker push $CI_APPLICATION_REPOSITORY:front-$CI_APPLICATION_TAG
+#     - docker push $CI_APPLICATION_REPOSITORY:front-latest
 
 
-build-back:
-  # Use the official docker image.
-  image: docker:latest
-  stage: build
-  services:
-    - docker:dind
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-  # Default branch leaves tag empty (= latest tag)
-  # All other branches are tagged with the escaped branch name (commit ref slug)
-  script:
-    - docker build -f ./build/backend.Dockerfile -t $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG -t $CI_APPLICATION_REPOSITORY:back-latest .
-    - docker push $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG
-    - docker push $CI_APPLICATION_REPOSITORY:back-latest
-    - echo $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG
+# build-back:
+#   # Use the official docker image.
+#   image: docker:latest
+#   stage: build
+#   services:
+#     - docker:dind
+#   before_script:
+#     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+#   # Default branch leaves tag empty (= latest tag)
+#   # All other branches are tagged with the escaped branch name (commit ref slug)
+#   script:
+#     - docker build -f ./build/backend.Dockerfile -t $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG -t $CI_APPLICATION_REPOSITORY:back-latest .
+#     - docker push $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG
+#     - docker push $CI_APPLICATION_REPOSITORY:back-latest
+#     - echo $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG
 
 
 deploy:
