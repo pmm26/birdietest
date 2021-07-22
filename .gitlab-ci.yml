@@ -62,5 +62,5 @@ deploy-front:
     - kubectl --insecure-skip-tls-verify --kubeconfig="/dev/null" --server=$KUBE_SERVER_URL --token=$KUBE_TOKEN -n birdie set image deployments/nodejs-frontend frontend=$CI_APPLICATION_REPOSITORY:front-$CI_APPLICATION_TAG
   only:
     refs:
-      - master
+      - main
 
