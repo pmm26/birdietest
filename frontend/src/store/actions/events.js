@@ -58,7 +58,7 @@ const sendRequest = (method, url, data) => {
   const dataOrParams = ["GET", "DELETE"].includes(method) ? "params" : "data";
   console.log(dataOrParams)
   return axios({
-    url: "http://birdie.prck.me/" + url,
+    url: "http://birdieapi.prck.me/" + url,
     method: method,
     [dataOrParams]: data,
     headers: {

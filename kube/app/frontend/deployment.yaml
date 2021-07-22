@@ -19,13 +19,14 @@ spec:
         app: nodejs-frontend
     spec:
       containers:
-        - env:
-            - name: API_KEY
-              value: birdiekey
+        - name: frontend
           image: registry.gitlab.com/xdpedrox/birdietest/main:front-latest
-          name: backend
           ports:
             - containerPort: 8000
+          env:
+            - name: API_KEY
+              value: birdiekey
+          imagePullPolicy: Always
           resources: {}
       restartPolicy: Always
 # kubectl set image deployments/nodejs-backend backend=registry.gitlab.com/xdpedrox/birdietest/main:back-0c638e8c8ceba6572dfeda3277f2de782c0dcd13 -n birdie
