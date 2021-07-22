@@ -58,7 +58,7 @@ const sendRequest = (method, url, data) => {
   const dataOrParams = ["GET", "DELETE"].includes(method) ? "params" : "data";
   console.log(dataOrParams)
   return axios({
-    url: "http://localhost:8000" + url,
+    url: "http://birdie.prck.me/" + url,
     method: method,
     [dataOrParams]: data,
     headers: {

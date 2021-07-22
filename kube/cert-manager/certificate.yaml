@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: birdie-app
+  namespace: birdie
+spec:
+  dnsNames:
+    - birdie.prck.me
+    - birdieapi.prck.me
+  secretName: birdie-app-tls
+  issuerRef:
+    name: letsencrypt-cluster-issuer
+    kind: ClusterIssuer

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-backend
+  namespace: birdie
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: nodejs-backend
+  template:
+    metadata:
+      labels:
+        app: nodejs-backend
+    spec:
+      containers:
+        - env:
+            - name: API_KEY
+              value: birdiekey
+            - name: DB_HOST
+              value: birdie-test.cyosireearno.eu-west-2.rds.amazonaws.com
+            - name: DB_NAME
+              value: birdietest
+            - name: DB_PASS
+              value: xnxPp6QfZbCYkY8
+            - name: DB_USER
+              value: test-read
+            - name: PORT
+              value: "8000"
+          image: registry.gitlab.com/xdpedrox/birdietest/main:back-latest
+          name: backend
+          ports:
+            - containerPort: 8000
+          resources: {}
+      restartPolicy: Always
+# kubectl set image deployments/nodejs-backend backend=registry.gitlab.com/xdpedrox/birdietest/main:back-0c638e8c8ceba6572dfeda3277f2de782c0dcd13 -n birdie

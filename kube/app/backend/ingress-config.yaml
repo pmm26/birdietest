@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /   #new 
+  name: birdieapi-app
+  namespace: birdie
+spec:
+  # tls:
+  # - hosts:
+  #   - birdieapi.prck.me
+  #   secretName: birdieapi-app-tls
+  rules:
+  - host: birdieapi.prck.me
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: nodejs-backend
+            port:
+              number: 80

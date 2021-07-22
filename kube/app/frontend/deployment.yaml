@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-frontend
+  namespace: birdie
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: nodejs-frontend
+  template:
+    metadata:
+      labels:
+        app: nodejs-frontend
+    spec:
+      containers:
+        - env:
+            - name: API_KEY
+              value: birdiekey
+          image: registry.gitlab.com/xdpedrox/birdietest/main:front-latest
+          name: backend
+          ports:
+            - containerPort: 8000
+          resources: {}
+      restartPolicy: Always
+# kubectl set image deployments/nodejs-backend backend=registry.gitlab.com/xdpedrox/birdietest/main:back-0c638e8c8ceba6572dfeda3277f2de782c0dcd13 -n birdie
