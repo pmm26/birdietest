@@ -19,7 +19,7 @@ variables:
 stages:          # List of stages for jobs, and their order of execution
   - build
 #  - test
-#  - deploy
+  - deploy
 
 build-front:
   # Use the official docker image.
@@ -57,7 +57,7 @@ build-back:
 deploy-front:
   # Use the official docker image.
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v2.6.0"
-  stage: deploy-front
+  stage: deploy
   script:
     - kubectl --insecure-skip-tls-verify --kubeconfig="/dev/null" --server=$KUBE_SERVER_URL --token=$KUBE_TOKEN -n birdie set image deployments/nodejs-frontend frontend=$CI_APPLICATION_REPOSITORY:front-$CI_APPLICATION_TAG
   only:
