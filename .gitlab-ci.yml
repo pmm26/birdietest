@@ -16,9 +16,9 @@ variables:
   CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG
   CI_APPLICATION_TAG: $CI_COMMIT_SHA
 
-stages:          # List of stages for jobs, and their order of execution
-#  - build
-#  - test
+stages:  
+  # - build
+  # - test
   - deploy
 
 build-front:
