@@ -1,7 +1,7 @@
 openapi: 3.0.0
 servers:
   - url: /v1
-  - url: http://birdieapi.prck.me/v1
+  - url: birdieapi.prck.me/v1
 info:
   description: This is a Birdie Test API
   version: "1.0.0"
@@ -31,18 +31,111 @@ components:
         - event_type
         - care_recipient_id
       properties:
+
         id:
           type: string
           format: uuid
           example: d290f1ee-6c54-4b01-90e6-d701748f0851
+
         care_recipient_id:
           type: string
           format: uuid
           example: d290f1ee-6c54-4b01-90e6-d701748f0851
+
         event_type:
           type: string
           example: fluid_intake_observation
+
         timestamp:
           type: string
           format: date-time
           example: '2016-08-29T09:12:33.001Z'
+
+        fluid:
+          type: string
+          example: 'caffeinated'
+
+        observed:
+          type: boolean
+          example: false
+
+        visit_id:
+          type: string
+          example: "5cc23bf0-8b66-f8a8-4339-688e1d43e11a"
+          
+        caregiver_id:
+          type: string
+          example: "220d9432-b5ed-4c81-8709-434899d2cd1b"
+
+        consumed_volume_ml:
+          type: number
+          example: 230
+
+        task_schedule_id:
+          type: string
+          example: "220d9432-b5ed-4c81-8709-434899d2cd1b"
+
+        task_definition_id:
+          type: string
+          example: "220d9432-b5ed-4c81-8709-434899d2cd1b"
+
+        task_schedule_note:
+          type: string
+          example: "Please assist me to brush my teeth"
+
+        task_definition_description:
+          type: string
+          example: "Assist with oral hygiene"
+
+        note:
+          type: string
+          example: "[redacted] is well. "
+
+        medication_type:
+          type: string
+          example: "SCHEDULED"
+
+        alert_id:
+          type: string
+          example: "220d9432-b5ed-4c81-8709-434899d2cd1b"
+
+        observation_event_id:
+          type: string
+          example: "220d9432-b5ed-4c81-8709-434899d2cd1b"
+
+        expected_dose_timestamp:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+        
+        user_id:
+          type: string
+          example: "220d9432-b5ed-4c81-8709-434899d2cd1b"
+
+        dose_size:
+          type: string
+          example: "To be spread on infected area "
+
+        medication_schedule_id:
+          type: string
+          example: "220d9432-b5ed-4c81-8709-434899d2cd1b"
+
+        alert_severity:
+          type: string
+          example: "LOW"
+
+        severity:
+          type: string
+          example: "MEDIUM"
+
+        visit_type:
+          type: string
+          example: "bowel"
+
+        visit_count:
+          type: number
+          example: 3
+
+        volume_ml:
+          type: number
+          example: 700

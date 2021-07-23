@@ -8,7 +8,6 @@ description: |
   By passing in the appropriate options, you can search for
   available events in the system
 parameters:
-  
   - in: query
     name: page
     description: Page number
@@ -87,9 +86,21 @@ responses:
     content:
       application/json:
         schema:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event'
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Event'
+            max_pages:
+              type: number
+              description: Number of pages
+            row_count:
+              type: number
+              description: Number of rows in database that match
+            page:
+              type: number
+              description: Current page
   '401':
     description: Unauthorized
     content:

@@ -1,0 +1,338 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "/v1"
+    },
+    {
+      "url": "birdieapi.prck.me/v1"
+    }
+  ],
+  "info": {
+    "description": "This is a Birdie Test API",
+    "version": "1.0.0",
+    "title": "Birdie Test API",
+    "contact": {
+      "email": "pmm26@protonmail.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "events",
+      "description": "List of Events"
+    }
+  ],
+  "paths": {
+    "/events": {
+      "parameters": [],
+      "get": {
+        "tags": [
+          "events"
+        ],
+        "summary": "searches events",
+        "operationId": "searchEvents",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "description": "By passing in the appropriate options, you can search for\navailable events in the system\n",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "description": "Maximum number of records to return",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "description": "Order of events timestamp",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[event_type]",
+            "schema": {
+              "type": "string",
+              "format": "enum"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[care_recipient_id]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[alert_id]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[task_instance_id]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[visit_id]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[caregiver_id]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[rejected_event_id]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[observation_event_id]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Event"
+                      }
+                    },
+                    "max_pages": {
+                      "type": "number",
+                      "description": "Number of pages"
+                    },
+                    "row_count": {
+                      "type": "number",
+                      "description": "Number of rows in database that match"
+                    },
+                    "page": {
+                      "type": "number",
+                      "description": "Current page"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "You must authenticate to access birdie api."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "An error message"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "description": "Some errors"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    },
+    "schemas": {
+      "Event": {
+        "type": "object",
+        "required": [
+          "id",
+          "timestamp",
+          "event_type",
+          "care_recipient_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "care_recipient_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "event_type": {
+            "type": "string",
+            "example": "fluid_intake_observation"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2016-08-29T09:12:33.001Z"
+          },
+          "fluid": {
+            "type": "string",
+            "example": "caffeinated"
+          },
+          "observed": {
+            "type": "boolean",
+            "example": false
+          },
+          "visit_id": {
+            "type": "string",
+            "example": "5cc23bf0-8b66-f8a8-4339-688e1d43e11a"
+          },
+          "caregiver_id": {
+            "type": "string",
+            "example": "220d9432-b5ed-4c81-8709-434899d2cd1b"
+          },
+          "consumed_volume_ml": {
+            "type": "number",
+            "example": 230
+          },
+          "task_schedule_id": {
+            "type": "string",
+            "example": "220d9432-b5ed-4c81-8709-434899d2cd1b"
+          },
+          "task_definition_id": {
+            "type": "string",
+            "example": "220d9432-b5ed-4c81-8709-434899d2cd1b"
+          },
+          "task_schedule_note": {
+            "type": "string",
+            "example": "Please assist me to brush my teeth"
+          },
+          "task_definition_description": {
+            "type": "string",
+            "example": "Assist with oral hygiene"
+          },
+          "note": {
+            "type": "string",
+            "example": "[redacted] is well. "
+          },
+          "medication_type": {
+            "type": "string",
+            "example": "SCHEDULED"
+          },
+          "alert_id": {
+            "type": "string",
+            "example": "220d9432-b5ed-4c81-8709-434899d2cd1b"
+          },
+          "observation_event_id": {
+            "type": "string",
+            "example": "220d9432-b5ed-4c81-8709-434899d2cd1b"
+          },
+          "expected_dose_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2016-08-29T09:12:33.001Z"
+          },
+          "user_id": {
+            "type": "string",
+            "example": "220d9432-b5ed-4c81-8709-434899d2cd1b"
+          },
+          "dose_size": {
+            "type": "string",
+            "example": "To be spread on infected area "
+          },
+          "medication_schedule_id": {
+            "type": "string",
+            "example": "220d9432-b5ed-4c81-8709-434899d2cd1b"
+          },
+          "alert_severity": {
+            "type": "string",
+            "example": "LOW"
+          },
+          "severity": {
+            "type": "string",
+            "example": "MEDIUM"
+          },
+          "visit_type": {
+            "type": "string",
+            "example": "bowel"
+          },
+          "visit_count": {
+            "type": "number",
+            "example": 3
+          },
+          "volume_ml": {
+            "type": "number",
+            "example": 700
+          }
+        }
+      }
+    }
+  }
+}

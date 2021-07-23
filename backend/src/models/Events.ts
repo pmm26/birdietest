@@ -44,8 +44,8 @@ module.exports = class Events {
     // Order and Limit results
     // TODO: fix order
     sqlQuery += ` ORDER BY timestamp ${order} LIMIT ?,?; `
-    console.log(sqlQuery)
-    console.log(order)
+    // console.log(sqlQuery)
+    // console.log(order)
     const valuesArray = [
       ...(filterEntries ? Object.values(filter) : []), // Add the values for the where
       ...(dateEntries ? Object.values(dates) : []),
@@ -54,7 +54,7 @@ module.exports = class Events {
       per_page
     ]
 
-    console.log(valuesArray)
+    // console.log(valuesArray)
 
     const rawEvents = await db.execute(sqlQuery, valuesArray);
     // counting rows for pagination
@@ -62,7 +62,9 @@ module.exports = class Events {
 
     return {
       data: rawEvents[0].map((e: { payload: object }) => e.payload),
-      max_pages: Math.ceil((rowCount[0][0].row_count / per_page))
+      row_count: rowCount[0][0].row_count,
+      max_pages: Math.ceil((rowCount[0][0].row_count / per_page)),
+      page: +page
     }
   }
 };

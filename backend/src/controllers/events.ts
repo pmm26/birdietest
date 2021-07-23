@@ -6,7 +6,7 @@ import { Request, Response, NextFunction } from 'express';
 
 const getEvents = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const strongParams: Object = permitParams.default(
+    const strongParams: any = permitParams.default(
       req.query,
       "page",
       "per_page",
@@ -28,7 +28,7 @@ const getEvents = async (req: Request, res: Response, next: NextFunction) => {
         ]
       }
     );
-      console.log(strongParams)
+
     const events = await Events.fetchAll(strongParams);
 
     res.status(200).json(events);
