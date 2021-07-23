@@ -2,8 +2,9 @@ require("dotenv").config();
 const fs = require("fs");
 const db = require("../util/mysql");
 
+
 const generateListOfDbAttributes = async () => {
-  
+
   const rawEvents = await db.execute('SELECT * FROM events');
 
   const eventsPayload = rawEvents[0].map((e) => e.payload);
@@ -31,8 +32,6 @@ const generateListOfDbAttributes = async () => {
       }
     });
 
-
-
     // List of examples for each event type.
     if (!eventTypes.hasOwnProperty(obj.event_type)) {
       eventTypes[obj.event_type] = obj;
@@ -50,14 +49,14 @@ const generateListOfDbAttributes = async () => {
       eventTypesRelevantAttributes[obj.event_type] = tempObj;
     }
 
-        // List of relevant Attribues for each event type (doesn't include ids)
+    // List of relevant Attribues for each event type (doesn't include ids)
     // To be used in the FrontEnd
     if (!eventTypesRelevantAttributes2.hasOwnProperty(obj.event_type)) {
       tempObj = { ...obj };
       Object.keys(tempObj).forEach((key1) => {
-        if (key1.endsWith("_id") || key1.endsWith("navigation") || key1.endsWith("screenProps") || 
-        key1.endsWith("id") || key1.endsWith("timestamp") || key1.endsWith("event_type") || 
-        key1.endsWith("care_recipient_id")) {
+        if (key1.endsWith("_id") || key1.endsWith("navigation") || key1.endsWith("screenProps") ||
+          key1.endsWith("id") || key1.endsWith("timestamp") || key1.endsWith("event_type") ||
+          key1.endsWith("care_recipient_id")) {
           delete tempObj[key1];
         }
       });
@@ -86,6 +85,12 @@ const generateListOfDbAttributes = async () => {
     "src/scripts/data/allPossibleKeys.json",
     JSON.stringify({ keys: allPossibleKeys })
   );
+
+  await fs.writeFileSync(
+    "src/scripts/data/eventTypesArray.json",
+    JSON.stringify({ eventTypes: Object.keys(eventTypes) })
+  );
+
 
   await fs.writeFileSync(
     "src/scripts/data/allPossibleKeysWithExample.json",
@@ -126,7 +131,7 @@ const generateListOfDbAttributes = async () => {
     })
   );
 
-  
+
 
   await fs.writeFileSync(
     "src/scripts/data/all-relevant-attributes.json",

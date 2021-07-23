@@ -3,19 +3,45 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchEvents } from '../store/actions/events'
 import styled from 'styled-components'
 import InfoText from "./InfoText";
+import moment from 'moment';
+import {humanizeEventType, capitalize} from '../utils/stringHelper'
 
 const EventContainer = styled.div`
+  border-radius: 15px;
+  min-height: 40px;
   display: flex;
   flex-flow: row;
-  border: 1px solid black;
+  border: 2px solid black;
   margin: 7px;
 `
 
 const EventTypeBox = styled.span`
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 30%;
+  min-height: 55px;
 `
 
+const InfoTitleText = styled.p`
+  font-weight: bold;
+  color: #00254d;
+  margin: 0;
+`
+const InfoDateText = styled.p`
+  /* font-weight: bold; */
+  color: #00254d;
+  margin: 0;
+`
 const InfoBox = styled.span`
+  padding-left: 15;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
+  /* flex-wrap: wrap; */
   width: 70%;
 `
 
@@ -24,18 +50,14 @@ const EventsPage = (props) => {
 
   }
 
-  const humanizeEventType = (event_type) => {
-    let string = event_type.split('_').join(' ')
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
   return (
     <EventContainer >
       <EventTypeBox>
-        {humanizeEventType(props.event_type)}
+        <InfoTitleText>{capitalize(humanizeEventType(props.event_type))}</InfoTitleText>
+        <InfoDateText>{moment(props.timestamp).format('MMMM Do YYYY, h:mm:ss a')}</InfoDateText>
       </EventTypeBox>
       <InfoBox>
-        <InfoText title="ID" value={props.id}/>
+        {/* <InfoText title="ID" value={props.id}/> */}
 
         <InfoText title="Observed" value={props.observed}/>
 
@@ -46,7 +68,7 @@ const EventsPage = (props) => {
         <InfoText title="Mood" value={props.mood} />
 
         <InfoText title="Medication Type" value={props.medication_type} />
-        <InfoText title="Expected Dose Timestamp" value={props.expected_dose_timestamp} />
+        <InfoText title="Expected Dose Timestamp" value={props.expected_dose_timestamp} date={true}/>
 
         <InfoText title="Pad Condition" value={props.pad_condition} />
         <InfoText title="Meal" value={props.meal} />
@@ -59,8 +81,8 @@ const EventsPage = (props) => {
         <InfoText title="Visit Count" value={props.visit_count} />
         
         {/* Tasks */}
-        <InfoText title="Task Note" value={props.task_schedule_note} />
         <InfoText title="Task Description" value={props.task_definition_description} />
+        <InfoText title="Task Note" value={props.task_schedule_note} />
 
         <InfoText title="Medication Failure Reason" value={props.medication_failure_reason} />
         <InfoText title="Note" value={props.note} />

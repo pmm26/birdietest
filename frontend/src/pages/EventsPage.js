@@ -13,6 +13,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Select from "react-select";
 import DateRangePicker from "../components/DateRangePicker";
 import classes from "./Events.module.css";
+import {capitalize, humanizeEventType} from '../utils/stringHelper'
 
 const EventsPage = (props) => {
   const eventsState = useSelector((state) => state.events);
@@ -31,7 +32,39 @@ const EventsPage = (props) => {
     dispatch(fetchFirstPage());
   }, []);
 
-  const options = [
+  const eventTypeOptions = [
+    "fluid_intake_observation",
+    "task_completed",
+    "physical_health_observation",
+    "visit_completed",
+    "check_out",
+    "mood_observation",
+    "regular_medication_taken",
+    "alert_raised",
+    "no_medication_observation_received",
+    "incontinence_pad_observation",
+    "check_in",
+    "general_observation",
+    "regular_medication_not_taken",
+    "food_intake_observation",
+    "task_completion_reverted",
+    "mental_health_observation",
+    "medication_schedule_updated",
+    "visit_cancelled",
+    "regular_medication_maybe_taken",
+    "medication_schedule_created",
+    "alert_qualified",
+    "task_schedule_created",
+    "concern_raised",
+    "regular_medication_partially_taken",
+    "catheter_observation",
+    "toilet_visit_recorded"
+  ].map(event => {
+    return {value: event, label: humanizeEventType(capitalize(event))}
+  })
+
+
+  const orderOptions = [
     { value: "DESC", label: "Descending" },
     { value: "ASC", label: "Ascending" },
   ];
@@ -51,13 +84,21 @@ const EventsPage = (props) => {
     <>
       {/* <button onClick={test2}>Print State</button> */}
       <div className={classes.Filers}>
+      <span className={classes.EventType}>
+          <p className={classes.OrderText}>Event Type:</p>
+          <Select
+            // value={selectedOption}
+            onChange={changeOrder}
+            options={eventTypeOptions}
+          />
+        </span>
+
         <span className={classes.Order}>
           <p className={classes.OrderText}>Order:</p>
           <Select
-            classes={classes.DatePickerText}
             // value={selectedOption}
             onChange={changeOrder}
-            options={options}
+            options={orderOptions}
           />
         </span>
 
