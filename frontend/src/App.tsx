@@ -20,8 +20,10 @@ const AppContainer = styled.div`
 `
 
 const Content = styled.div`
+  border-radius: 25px;
+  padding: 15px;
   align-self: center;
-  background-color: white;
+  background-color: #f7c364;
   width: 1000px;
   margin: auto;
   margin-top: 60px;

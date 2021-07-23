@@ -3,7 +3,7 @@ import Calendar from "react-calendar";
 import moment from "moment";
 import ClickOutside from "./ClickOutside";
 import { Manager, Reference, Popper } from "react-popper";
-
+import classes from './DatePicker.module.css'
 const DateRangePicker = (props) => {
 
   const inicializeDate = (dateString) => {
@@ -50,10 +50,10 @@ const DateRangePicker = (props) => {
       <Manager>
         <Reference>
           {({ ref }) => (
-            <span ref={ref}>
+            <span className={classes.Input} ref={ref}>
               <input
                 ref={(element) => assignRef(element, ref)}
-                className={"date-range-input" }
+                className={[classes.Input, "css-yk16xz-control"].join(' ')} 
                 onClick={toggleDatePicker}
                 value={formatDates(date)}
                 onClick={toggleDatePicker}

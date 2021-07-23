@@ -19,13 +19,14 @@ interface QueryFetchAll {
   order: "DESC" | "ASC";
 }
 
-module.exports = class Events {
+module.exports = class Events { 
+
   static async fetchAll({
     dates = {},
     filter = {},
     page = 1,
     per_page = 25,
-    order = "DESC",
+    order = "DESC"
   }: QueryFetchAll) {
     // Not the cleanest implementation but it does the job
     // If I were to do it again I would have used squelize
@@ -35,8 +36,8 @@ module.exports = class Events {
     let filerKeys = Object.keys(filter);
 
     // Do we have Filter
-    const filterEntries = filerKeys.length != 0;
-    const dateEntries = Object.keys(dates).length != 0;
+    const filterEntries = filerKeys.length > 0;
+    const dateEntries = Object.keys(dates).length > 0;
 
     // WHERE
     if (filterEntries || dateEntries) {
@@ -45,7 +46,7 @@ module.exports = class Events {
       if (filterEntries) {
         sqlQuery += `${filerKeys.join(" = ? AND ")} = ?`;
         // Adding the and
-        if (dates.start_date || dates.end_date) {
+        if (dateEntries) {
           sqlQuery += " AND ";
         }
       }
@@ -64,7 +65,7 @@ module.exports = class Events {
     }
 
     // Order and Limit results
-    // TODO: fix order
+    // TODO: FIX SQL INJECTION
     sqlQuery += ` ORDER BY timestamp ${order} LIMIT ?,?; `;
 
     const valuesArray = [
@@ -76,8 +77,6 @@ module.exports = class Events {
       per_page,
     ];
 
-    // console.log(valuesArray)
-
     const rawEvents = await db.execute(sqlQuery, valuesArray);
     // counting rows for pagination
     const rowCount = await db.execute("SELECT FOUND_ROWS() as row_count");
@@ -86,7 +85,7 @@ module.exports = class Events {
       data: rawEvents[0].map((e: { payload: object }) => e.payload),
       row_count: rowCount[0][0].row_count,
       max_pages: Math.ceil(rowCount[0][0].row_count / per_page),
-      page: +page,
+      page: +page, //convert to number
     };
   }
 };

@@ -1,24 +1,19 @@
 import React, { Component } from "react";
-
+import { ReactComponent as Logo } from '../../assets/logo.svg';
 import classes from "./Layout.module.css";
-import NavigationItem from './NavigationItem';
 
 class Layout extends Component {
   render() {
     return (
-      <>
-        <div className={classes.Toolbar}>
-          <div className={classes.Logo}>Birdie</div>
-          <nav className={classes.DesktopOnly}>
-
-            <ul className={classes.NavigationItems}>
-              <NavigationItem link="/" active={true} >Day</NavigationItem>
-              <NavigationItem link="/">Night</NavigationItem>
-            </ul>
-          </nav>
+      <div className={classes.Box}>
+        <div className={classes.Header}>
+          <Logo className={classes.Logo} />
         </div>
         {this.props.children}
-      </>
+        <div className={classes.Footer}>      
+
+        </div>
+      </ div>
     );
   }
 }
