@@ -3,7 +3,7 @@ const request = require('supertest');
 const pool = require("../src/util/mysql.js")
 const jestOpenAPI = require('jest-openapi');
 
-// File copied from http://localhost:8000/v1/api-docs/
+// File copied from http://birdieapi.prck.me/v1/api-docs/
 // Work around: express-openapi doesn't seem to generate the full file when using supertest.
 // It also skips any middleware. Looking back I would have used a more standart aproach.
 const schema = require('./api-doc.json')
@@ -156,7 +156,7 @@ describe('/v1/events', () => {
   })
 });
 
-
+// Finds if any of results breaks the search query
 const findAnomaly = async (searchObj, data) => {
   const string = Object.keys(searchObj)[0]
 
