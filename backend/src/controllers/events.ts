@@ -1,4 +1,3 @@
-
 const YAML = require('yamljs')
 const Events = require("../models/Events");
 const permitParams = require("permit-params");
@@ -22,10 +21,7 @@ const getEvents = async (req: Request, res: Response, next: NextFunction) => {
           "rejected_event_id",
           "observation_event_id",
         ],
-        dates: [
-          "start_date",
-          "end_date"
-        ]
+        dates: ["start_date", "end_date"],
       }
     );
 

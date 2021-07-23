@@ -1,10 +1,4 @@
 const db = require("../util/mysql");
-// import { OkPacket, RowDataPacket } from "mysql2";
-
-// interface SquareConfig {
-//   color?: string;
-//   width?: number;
-// }
 
 interface Dates {
   start_date?: string;
