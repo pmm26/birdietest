@@ -13,6 +13,8 @@ const EventContainer = styled.div`
   flex-flow: row;
   border: 2px solid black;
   margin: 7px;
+  padding-left: 10px;
+  padding-right: 10px;
 `
 
 const EventTypeBox = styled.span`
@@ -36,7 +38,7 @@ const InfoDateText = styled.p`
   margin: 0;
 `
 const InfoBox = styled.span`
-  padding-left: 15;
+  margin-left: 15;
   display: flex;
   flex-direction: row;
   justify-items: center;
