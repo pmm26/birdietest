@@ -4,7 +4,7 @@ variables:
 
 stages:  
   - build
-  - test
+  # - test
   - deploy
 
 build-front:
@@ -35,13 +35,13 @@ build-back:
     - docker push $CI_APPLICATION_REPOSITORY:back-latest
     - echo $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG
 
-test-back:
-  # Use the official docker image.
-  image: $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG
-  stage: test
-  script:
-    - cd /app
-    - npm run test
+# test-back:
+#   # Use the official docker image.
+#   image: $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG
+#   stage: test
+#   script:
+#     - cd /app
+#     - npm run test
 
 
 deploy:

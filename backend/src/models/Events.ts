@@ -1,4 +1,4 @@
-const db = require('../util/mysql');
+const db = require("../util/mysql");
 // import { OkPacket, RowDataPacket } from "mysql2";
 
 // interface SquareConfig {
@@ -16,69 +16,77 @@ interface QueryFetchAll {
   dates: Dates;
   page: number;
   per_page: number;
-  order: 'DESC' | 'ASC'
+  order: "DESC" | "ASC";
 }
 
 module.exports = class Events {
-  static async fetchAll({ dates = {}, filter = {}, page = 1, per_page = 25, order = 'DESC' }: QueryFetchAll) {
+  static async fetchAll({
+    dates = {},
+    filter = {},
+    page = 1,
+    per_page = 25,
+    order = "DESC",
+  }: QueryFetchAll) {
     // Not the cleanest implementation but it does the job
-    // If I were to do it again I would have used squelize 
+    // If I were to do it again I would have used squelize
     // Fetch Events
-    let sqlQuery = "SELECT SQL_CALC_FOUND_ROWS payload FROM events"
+    let sqlQuery = "SELECT SQL_CALC_FOUND_ROWS payload FROM events";
 
-    let filerKeys = Object.keys(filter)
+    let filerKeys = Object.keys(filter);
 
     // Do we have Filter
-    const filterEntries = filerKeys.length != 0
-    const dateEntries = Object.keys(dates).length != 0
+    const filterEntries = filerKeys.length != 0;
+    const dateEntries = Object.keys(dates).length != 0;
 
     // WHERE
     if (filterEntries || dateEntries) {
-      sqlQuery += " WHERE ("
+      sqlQuery += " WHERE (";
 
       if (filterEntries) {
-        sqlQuery += `${filerKeys.join(' = ? AND ')} = ?`
+        sqlQuery += `${filerKeys.join(" = ? AND ")} = ?`;
+        // Adding the and
+        if (dates.start_date || dates.end_date) {
+          sqlQuery += " AND ";
+        }
       }
-      
+
       // Start Date
       if (dates.start_date) {
-        sqlQuery += ` AND timestamp >= ? `
+        sqlQuery += ` DATE(timestamp) >= ? `;
       }
 
       // End Date
       if (dates.end_date) {
-        sqlQuery += ` AND timestamp < ? `
+        sqlQuery += ` AND DATE(timestamp) <= ? `;
       }
-      
 
-      sqlQuery += ')'
+      sqlQuery += ")";
     }
 
     // Order and Limit results
     // TODO: fix order
-    sqlQuery += ` ORDER BY timestamp ${order} LIMIT ?,?; `
-    // console.log(sqlQuery)
-    // console.log(order)
+    sqlQuery += ` ORDER BY timestamp ${order} LIMIT ?,?; `;
+
     const valuesArray = [
       ...(filterEntries ? Object.values(filter) : []), // Add the values for the where
       ...(dates.start_date ? [dates.start_date] : []),
       ...(dates.end_date ? [dates.end_date] : []),
       // order,
       (page - 1) * per_page,
-      per_page
-    ]
+      per_page,
+    ];
 
     // console.log(valuesArray)
 
     const rawEvents = await db.execute(sqlQuery, valuesArray);
     // counting rows for pagination
-    const rowCount = await db.execute('SELECT FOUND_ROWS() as row_count');
+    const rowCount = await db.execute("SELECT FOUND_ROWS() as row_count");
 
     return {
       data: rawEvents[0].map((e: { payload: object }) => e.payload),
       row_count: rowCount[0][0].row_count,
-      max_pages: Math.ceil((rowCount[0][0].row_count / per_page)),
-      page: +page
-    }
+      max_pages: Math.ceil(rowCount[0][0].row_count / per_page),
+      page: +page,
+    };
   }
 };

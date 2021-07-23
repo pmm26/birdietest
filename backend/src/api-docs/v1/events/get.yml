@@ -80,6 +80,17 @@ parameters:
       type: string
       format: uuid
 
+  - in: query
+    name: dates[start_date]
+    schema:
+      type: string
+      format: date
+
+  - in: query
+    name: dates[end_date]
+    schema:
+      type: string
+      format: date
 responses:
   '200':
     description: search results matching criteria

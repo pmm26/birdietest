@@ -30,7 +30,6 @@ describe('/v1/events', () => {
       });
   })
 
-
   it('matches the openapi schema', async () => {
     await request(app)
       .get('/v1/events/')
@@ -51,7 +50,6 @@ describe('/v1/events', () => {
           expect(res.body.page).toEqual(2);
         });
     })
-
 
     it('per_page', async () => {
       await request(app)
@@ -87,7 +85,6 @@ describe('/v1/events', () => {
         });
     })
 
-
     it('filter[alert_id]', async () => {
       const searchObj = {"filter[alert_id]": 'f547e82d-5e03-4e6f-aad9-e01ad662d4c7'}
       await request(app)
@@ -99,8 +96,6 @@ describe('/v1/events', () => {
           expect(result).toEqual(false);
         });
     })
-
-
 
     it('filter[task_instance_id]', async () => {
       const searchObj = {"filter[task_instance_id]": 'bXxjZmJkZTliZC05NTQ5LTRjZjEtODA2Ny00MDkxMmYwMzg4OTh8MjAxOS0wNS0xMlQxMTowMDowMC4wMDBa'}
@@ -114,7 +109,6 @@ describe('/v1/events', () => {
         });
     })
 
-
     it('filter[visit_id]', async () => {
       const searchObj = {"filter[visit_id]": '5cd753f0-8b66-f8a8-43f7-330f62a3e1d6'}
       await request(app)
@@ -127,7 +121,6 @@ describe('/v1/events', () => {
         });
     })
 
-
     it('filter[caregiver_id]', async () => {
       const searchObj = {"filter[caregiver_id]": 'f7a00df5-bbc4-4ad7-9918-c07e16e709f6'}
       await request(app)
@@ -139,7 +132,6 @@ describe('/v1/events', () => {
           expect(result).toEqual(false);
         });
     })
-
 
     it('filter[observation_event_id]', async () => {
       const searchObj = {"filter[observation_event_id]": '2fe20df2-3a47-40e8-b212-e9c9b1a3b8f5'}
