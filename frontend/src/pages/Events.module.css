@@ -23,16 +23,17 @@
 
 .DatePicker {
   flex: 1;
-  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .EventType {
   flex: 1;
+  padding-right: 20px;
 }
 
 .Order {
   flex: 1;
-  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .Title {

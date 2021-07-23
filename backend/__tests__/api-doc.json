@@ -3,9 +3,6 @@
   "servers": [
     {
       "url": "/v1"
-    },
-    {
-      "url": "birdieapi.prck.me/v1"
     }
   ],
   "info": {
@@ -132,6 +129,22 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "dates[start_date]",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "dates[end_date]",
+            "schema": {
+              "type": "string",
+              "format": "date"
             }
           }
         ],
