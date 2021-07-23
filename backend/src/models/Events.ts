@@ -6,9 +6,14 @@ const db = require('../util/mysql');
 //   width?: number;
 // }
 
+interface Dates {
+  start_date?: string;
+  end_date?: string;
+}
+
 interface QueryFetchAll {
   filter: object;
-  dates: object;
+  dates: Dates;
   page: number;
   per_page: number;
   order: 'DESC' | 'ASC'
@@ -34,9 +39,17 @@ module.exports = class Events {
       if (filterEntries) {
         sqlQuery += `${filerKeys.join(' = ? AND ')} = ?`
       }
-      if (dateEntries) {
-        sqlQuery += ` timestamp >= ? AND timestamp < ? `
+      
+      // Start Date
+      if (dates.start_date) {
+        sqlQuery += ` AND timestamp >= ? `
       }
+
+      // End Date
+      if (dates.end_date) {
+        sqlQuery += ` AND timestamp < ? `
+      }
+      
 
       sqlQuery += ')'
     }
@@ -48,7 +61,8 @@ module.exports = class Events {
     // console.log(order)
     const valuesArray = [
       ...(filterEntries ? Object.values(filter) : []), // Add the values for the where
-      ...(dateEntries ? Object.values(dates) : []),
+      ...(dates.start_date ? [dates.start_date] : []),
+      ...(dates.end_date ? [dates.end_date] : []),
       // order,
       (page - 1) * per_page,
       per_page
