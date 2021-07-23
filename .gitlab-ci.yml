@@ -54,6 +54,7 @@ test-back:
   image: $CI_APPLICATION_REPOSITORY:back-$CI_APPLICATION_TAG
   stage: test
   script:
+    - cd /app
     - npm run test
 
 

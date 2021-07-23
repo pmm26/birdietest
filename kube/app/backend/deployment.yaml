@@ -36,6 +36,9 @@ spec:
               value: test-read
             - name: PORT
               value: "8000"
+            - name: BASE_URL
+              value: "http://birdieapi.prck.me"
+
           resources: {}
       restartPolicy: Always
 # kubectl set image deployments/nodejs-backend backend=registry.gitlab.com/xdpedrox/birdietest/main:back-0c638e8c8ceba6572dfeda3277f2de782c0dcd13 -n birdie
