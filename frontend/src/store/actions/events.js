@@ -1,5 +1,6 @@
 import axios from "axios";
 
+export const INIT = "INIT";
 export const FETCH_EVENTS = "FETCH_EVENTS";
 export const FETCH_PAGE = "FETCH_PAGE";
 export const SET_DATE = "SET_DATE";
@@ -28,27 +29,34 @@ export const fetchPage = () => {
   };
 };
 
-export const fetchFirstPage = () => {
-  return async (dispatch, getState) => {
+// The first fetch that is called resets app to inicial state
+export const initEventFetch = () => {
+  return async (dispatch) => {
     try {
-      const events = getState().events;
-      if (!events.firstLoad) {
-        const data = await fetchEvents()
-        dispatch({
-          type: FETCH_EVENTS,
-          events: data.data.data,
-          maxPages: data.data.max_pages,
-        });
-      }
+      const data = await fetchEvents()
+      dispatch({
+        type: INIT,
+        events: data.data.data,
+        maxPages: data.data.max_pages,
+      });
+
     } catch (err) {
       dispatch(errorHandler(err));
     }
   };
 };
 
+const fetchNewFilter = (eventsState) => {
+  return fetchEvents({
+    ...getParams(eventsState),
+    page: 1,
+  });
+};
+
 export const setDate = (dates) => {
   return { type: SET_DATE, dates: dates };
 };
+
 
 export const setOrder = (select) => {
   return async (dispatch, getState) => {
@@ -82,6 +90,7 @@ export const setEventType = (select) => {
   };
 };
 
+// Helper functions
 const errorHandler = (err) => {
   console.log(err)
   let message = 'Error connecting to server'
@@ -104,12 +113,6 @@ const getParams = ({ filters }) => {
   return params;
 };
 
-const fetchNewFilter = (eventsState) => {
-  return fetchEvents({
-    ...getParams(eventsState),
-    page: 1,
-  });
-};
 
 // Reausable events Function
 const fetchEvents = (params = {}) => {
@@ -120,7 +123,8 @@ const fetchEvents = (params = {}) => {
 const sendRequest = (method, url, data) => {
   const dataOrParams = ["GET", "DELETE"].includes(method) ? "params" : "data";
   return axios({
-    url: "http://birdieapi.prck.m" + url,
+    // url: "http://birdieapi.prck.me" + url,
+    url: "http://localhost:8000" + url,
     method: method,
     [dataOrParams]: data,
     headers: {

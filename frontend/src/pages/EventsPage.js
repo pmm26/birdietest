@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchFirstPage,
+  initEventFetch,
   fetchPage,
+  INIT,
   setDate,
   setOrder,
 } from "../store/actions/events";
@@ -29,9 +30,15 @@ const EventsPage = (props) => {
   const loadNextPage = () => {
     dispatch(fetchPage());
   };
+  const initFetch = () => {
+    dispatch(initEventFetch());
+
+  }
 
   useEffect(() => {
-    dispatch(fetchFirstPage());
+    if (!eventsState.firstLoad) {
+      initFetch()
+    }
   }, []);
 
   const test2 = () => {
@@ -75,7 +82,7 @@ const EventsPage = (props) => {
                   onChange={changeDates}
                 />
               </span>
-              <button className={classes.Buttons}>Clear filters</button>
+              <button onClick={initFetch} className={classes.Buttons}>Clear filters</button>
             </div>
 
             <div className={classes.EventsContainer}>
