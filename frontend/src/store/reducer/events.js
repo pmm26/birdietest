@@ -1,4 +1,4 @@
-import {FETCH_EVENTS, FETCH_PAGE, SET_DATE, SET_ORDER, SET_EVENT_TYPE} from '../actions/events'
+import {FETCH_EVENTS, FETCH_PAGE, SET_DATE, SET_ORDER, SET_EVENT_TYPE, ERROR} from '../actions/events'
 
 const initialState = {
   firstLoad: false,
@@ -26,6 +26,8 @@ const reducer = (state = initialState, action) => {
         return {...state, filters: {...state.filters, order: action.select}};
     case SET_EVENT_TYPE:
       return {...state, filters: {...state.filters, eventType: action.eventType}};
+    case ERROR:
+      return {...initialState, error: action.message};
     default:
       return state;
   }

@@ -5,36 +5,43 @@ export const FETCH_PAGE = "FETCH_PAGE";
 export const SET_DATE = "SET_DATE";
 export const SET_ORDER = "SET_ORDER";
 export const SET_EVENT_TYPE = "SET_EVENT_TYPE";
+export const ERROR = "ERROR";
 
 export const fetchPage = () => {
   return async (dispatch, getState) => {
-    const eventsState = getState().events;
-    const nextPage = eventsState.currentPage + 1;
-    fetchEvents({
-      ...getParams(eventsState),
-      page: nextPage,
-    }).then((data) => {
+    try {
+      const eventsState = getState().events;
+      const nextPage = eventsState.currentPage + 1;
+      const data = await fetchEvents({
+        ...getParams(eventsState),
+        page: nextPage,
+      })
       dispatch({
         type: FETCH_PAGE,
         events: data.data.data,
         maxPages: data.data.max_pages,
         currentPage: nextPage,
       });
-    });
+    } catch (err) {
+      dispatch(errorHandler(err));
+    }
   };
 };
 
 export const fetchFirstPage = () => {
   return async (dispatch, getState) => {
-    const events = getState().events;
-    if (!events.firstLoad) {
-      fetchEvents().then((data) => {
+    try {
+      const events = getState().events;
+      if (!events.firstLoad) {
+        const data = await fetchEvents()
         dispatch({
           type: FETCH_EVENTS,
           events: data.data.data,
           maxPages: data.data.max_pages,
         });
-      });
+      }
+    } catch (err) {
+      dispatch(errorHandler(err));
     }
   };
 };
@@ -76,7 +83,15 @@ export const setEventType = (select) => {
 };
 
 const errorHandler = (err) => {
-  if (err.code) return { type: "ERROR" };
+  console.log(err)
+  let message = 'Error connecting to server'
+
+  if (err.code === 400) {
+    message = 'API error'
+  } else if (err.code === 500) {
+    message = "What did you do? You broke the server :'("
+  }
+  return { type: ERROR, message: message };
 };
 
 const getParams = ({ filters }) => {
@@ -98,17 +113,14 @@ const fetchNewFilter = (eventsState) => {
 
 // Reausable events Function
 const fetchEvents = (params = {}) => {
-  console.log(params);
-  return sendRequest("GET", "/v1/events", params).catch((err) => {
-    console.log(err);
-  });
+  return sendRequest("GET", "/v1/events", params)
 };
 
 // Reusable API Function
 const sendRequest = (method, url, data) => {
   const dataOrParams = ["GET", "DELETE"].includes(method) ? "params" : "data";
   return axios({
-    url: "http://birdieapi.prck.me" + url,
+    url: "http://birdieapi.prck.m" + url,
     method: method,
     [dataOrParams]: data,
     headers: {

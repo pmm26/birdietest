@@ -40,64 +40,69 @@ const EventsPage = (props) => {
 
   return (
     <>
-      <button onClick={test2}>Print State</button>
-      <div className={classes.Filers}>
-        <span className={classes.EventType}>
-          <p className={classes.OrderText}>Event Type:</p>
-          <Select
-            // value={selectedOption}
-            defaultValue={eventTypeOptions[0]}
-            onChange={changeEventType}
-            options={eventTypeOptions}
-          />
-        </span>
+      {eventsState.error && (
+        <h1>{eventsState.error}</h1>
+      ) || (
+          <>
+            <button onClick={test2}>Print State</button>
+            <div className={classes.Filers}>
+              <span className={classes.EventType}>
+                <p className={classes.OrderText}>Event Type:</p>
+                <Select
+                  // value={selectedOption}
+                  defaultValue={eventTypeOptions[0]}
+                  onChange={changeEventType}
+                  options={eventTypeOptions}
+                />
+              </span>
 
-        <span className={classes.Order}>
-          <p className={classes.OrderText}>Order:</p>
-          <Select
-            defaultValue={orderOptions[0]}
-            // value={selectedOption}
-            onChange={changeOrder}
-            options={orderOptions}
-          />
-        </span>
+              <span className={classes.Order}>
+                <p className={classes.OrderText}>Order:</p>
+                <Select
+                  defaultValue={orderOptions[0]}
+                  // value={selectedOption}
+                  onChange={changeOrder}
+                  options={orderOptions}
+                />
+              </span>
 
 
-        <span className={classes.DatePicker}>
-          <p className={classes.OrderText}>Date Range:</p>
-          <DateRangePicker
-            start_date={{ value: eventsState.filters.dates[0] }}
-            end_date={{ value: eventsState.filters.dates[1] }}
-            onChange={changeDates}
-          />
-        </span>
-        <button className={classes.Buttons}>Clear filters</button>
-      </div>
+              <span className={classes.DatePicker}>
+                <p className={classes.OrderText}>Date Range:</p>
+                <DateRangePicker
+                  start_date={{ value: eventsState.filters.dates[0] }}
+                  end_date={{ value: eventsState.filters.dates[1] }}
+                  onChange={changeDates}
+                />
+              </span>
+              <button className={classes.Buttons}>Clear filters</button>
+            </div>
 
-      <div className={classes.EventsContainer}>
-        <h2 className={classes.Title}>Events</h2>
-        <InfiniteScroll
-          dataLength={eventsState.events.length} //This is important field to render the next data
-          next={loadNextPage}
-          hasMore={
-            !(eventsState.events.currentPage < eventsState.events.maxPages)
-          }
-          loader={<h4>Loading...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have reached the end. Woop! Woop!</b>
-            </p>
-          }
-        >
-          {eventsState.events.map((element) => (
-            <EventEntry {...element} key={element.id} />
-          ))}
-        </InfiniteScroll>
-        {!(eventsState.events.currentPage < eventsState.events.maxPages) && (
-          <button onClick={loadNextPage}>Load More</button>
+            <div className={classes.EventsContainer}>
+              <h2 className={classes.Title}>Events</h2>
+              <InfiniteScroll
+                dataLength={eventsState.events.length} //This is important field to render the next data
+                next={loadNextPage}
+                hasMore={
+                  !(eventsState.events.currentPage < eventsState.events.maxPages)
+                }
+                loader={<h4>Loading...</h4>}
+                endMessage={
+                  <p style={{ textAlign: "center" }}>
+                    <b>Yay! You have reached the end. Woop! Woop!</b>
+                  </p>
+                }
+              >
+                {eventsState.events.map((element) => (
+                  <EventEntry {...element} key={element.id} />
+                ))}
+              </InfiniteScroll>
+              {!(eventsState.events.currentPage < eventsState.events.maxPages) && (
+                <button onClick={loadNextPage}>Load More</button>
+              )}
+            </div>
+          </>
         )}
-      </div>
-
     </>
   );
 };
