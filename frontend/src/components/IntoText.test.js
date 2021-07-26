@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import InfoText from './InfoText';
 
 describe('InfoText component', () => {
@@ -27,6 +26,14 @@ describe('InfoText component', () => {
     const valueElement = screen.getByText('No');
     expect(valueElement).toBeInTheDocument();
   });
+
+  test('renders empty string', () => {
+    render(<InfoText value="" />);
+
+    const valueElement = screen.getByText('None provided');
+    expect(valueElement).toBeInTheDocument();
+  });
+
 
   test('renders formatted date', () => {
     render(<InfoText date={true} value={'2019-05-12T22:06:34+01:00'} />);

@@ -9,6 +9,25 @@ export const SET_ORDER = "SET_ORDER";
 export const SET_EVENT_TYPE = "SET_EVENT_TYPE";
 export const ERROR = "ERROR";
 
+// The first fetch that is called resets app to inicial state
+// Reset store and gets events.
+export const initEventFetch = () => {
+  return async (dispatch) => {
+    try {
+      const data = await fetchEvents()
+      dispatch({
+        type: INIT,
+        events: data.data.data,
+        maxPages: data.data.max_pages,
+      });
+
+    } catch (err) {
+      dispatch(errorHandler(err));
+    }
+  };
+};
+
+// Fetches the next page of events
 export const fetchPage = () => {
   return async (dispatch, getState) => {
     try {
@@ -30,30 +49,7 @@ export const fetchPage = () => {
   };
 };
 
-// The first fetch that is called resets app to inicial state
-export const initEventFetch = () => {
-  return async (dispatch) => {
-    try {
-      const data = await fetchEvents()
-      dispatch({
-        type: INIT,
-        events: data.data.data,
-        maxPages: data.data.max_pages,
-      });
-
-    } catch (err) {
-      dispatch(errorHandler(err));
-    }
-  };
-};
-
-const fetchNewFilter = (eventsState) => {
-  return fetchEvents({
-    ...getParams(eventsState),
-    page: 1,
-  });
-};
-
+// Filter options
 export const setDate = (dates) => {
   return async (dispatch, getState) => {
     try {
@@ -103,9 +99,17 @@ export const setEventType = (select) => {
   };
 };
 
+
+const fetchNewFilter = (eventsState) => {
+  return fetchEvents({
+    ...getParams(eventsState),
+    page: 1,
+  });
+};
+
+
 // Helper functions
 const errorHandler = (err) => {
-  console.log(err)
   let message = 'Error connecting to server'
 
   if (err.code === 400) {
@@ -140,7 +144,7 @@ const fetchEvents = (params = {}) => {
 // Reusable API Function
 const sendRequest = (method, url, data) => {
   const dataOrParams = ["GET", "DELETE"].includes(method) ? "params" : "data";
-  return axios({
+  return axios.request({
     url: "http://birdieapi.prck.me" + url,
     // url: "http://localhost:8000" + url,
     method: method,

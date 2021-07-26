@@ -1,3 +1,48 @@
+
+I saw this test as a way to display my knowledge and practice so I've decided to include a bit of everything. 
+In the end is not a perfect project there is always room for improvement. 
+
+While some of the features included in this project weren't asked in the tests I decided to do my best and include a bit of everything that I know. As a way to display my abilities but also as a good practice. 
+
+# What you will find on this project
+
+## Frontend
+http://birdie.prck.me/
+- React 
+- Redux with thunk middleware
+- Pagination with new content loading as you scroll
+- Filtering options
+- Tests
+### What I would be improvided given the time
+- Styling
+- Typescript
+- File organization
+- Better tests
+
+## Backend 
+http://birdieapi.prck.me/api-documentation/
+- Mysql2
+- OpenAPI 3.0 with Swagger Ui
+- API with API KEY: bierdiekey
+- Tests
+### What I would be improvided given the time
+- Having a Test database or having a mocks of the database.
+- Used Sequelize to facilitate SQL query building.
+- If I were to do it again I would have gone for a more standart aprouch without the express-openapi packge and instead I would have used the using express-openapi-validator package to validade requests and responses.
+
+## Gitlab CI/CD
+https://gitlab.com/xdpedrox/birdietest/-/pipelines
+- Builds 2 image for font and backend.
+- Deploys images to DigitalOcean kubernetes.
+### What I would be improvided given the time
+- Add a testing step before deployment to insure the app is working as expected before deployment.
+
+<br /> 
+<br /> 
+
+
+
+
 # Birdie Developer Test
 
 We would like to thank you for taking our developer test. We understand that candidates will often have many of these tests to complete, therefore we think it's important to cut straight to the important stuff.

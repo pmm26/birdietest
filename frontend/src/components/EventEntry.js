@@ -48,7 +48,7 @@ const EventsPage = (props) => {
     <EventContainer>
       <EventTypeBox>
         <InfoTitleText>{capitalize(humanizeEventType(props.event_type))}</InfoTitleText>
-        <InfoDateText>{moment(props.timestamp).format('MMMM Do YYYY, h:mm:ss a')}</InfoDateText>
+        <InfoDateText>{moment(props.timestamp).format('Do MMMM YYYY, h:mm:ss a')}</InfoDateText>
       </EventTypeBox>
       <InfoBox>
 
