@@ -4,11 +4,11 @@ import moment from "moment";
 import ClickOutside from "./ClickOutside";
 import { Manager, Reference, Popper } from "react-popper";
 import classes from './DatePicker.module.css'
-const DateRangePicker = (props) => {
 
+
+const DateRangePicker = (props) => {
   let refer = useRef(null);
   const [open, setOpen] = useState(false);
-
 
   const toggleDatePicker = () => {
     if (!props.disabled)
@@ -38,6 +38,7 @@ const DateRangePicker = (props) => {
       return ""
     }
   }
+
   const assignRef = (element, ref) => {
     refer.current = element
     ref(element)

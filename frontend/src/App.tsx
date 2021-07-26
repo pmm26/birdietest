@@ -1,6 +1,6 @@
 import React from 'react';
 // import logo from './logo.svg';
-import Layout from './components/Layout/Layout';
+import Layout from './components/Layout';
 import styled from 'styled-components'
 
 import { Provider } from 'react-redux'

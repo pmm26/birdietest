@@ -1,5 +1,4 @@
 import {INIT, FETCH_EVENTS, FETCH_PAGE, SET_DATE, SET_ORDER, SET_EVENT_TYPE, ERROR} from '../actions/events'
-import moment from "moment";
 
 const initialState = {
   firstLoad: false,

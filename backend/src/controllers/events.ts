@@ -2,10 +2,11 @@ const YAML = require('yamljs')
 const Events = require("../models/Events");
 const permitParams = require("permit-params");
 import { Request, Response, NextFunction } from 'express';
+import { QueryFetchAll } from '../util/types'
 
 const getEvents = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const strongParams: any = permitParams.default(
+    const strongParams: QueryFetchAll = permitParams.default(
       req.query,
       "page",
       "per_page",

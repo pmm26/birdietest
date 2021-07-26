@@ -1,17 +1,5 @@
 const db = require("../util/mysql");
-
-interface Dates {
-  start_date?: string;
-  end_date?: string;
-}
-
-interface QueryFetchAll {
-  filter: object;
-  dates: Dates;
-  page: number;
-  per_page: number;
-  order: "DESC" | "ASC";
-}
+import { QueryFetchAll } from '../util/types'
 
 module.exports = class Events { 
 

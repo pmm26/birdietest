@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchEvents } from '../store/actions/events'
+import React from "react";
 import styled from 'styled-components'
 import InfoText from "./InfoText";
 import moment from 'moment';
@@ -33,7 +31,6 @@ const InfoTitleText = styled.p`
   margin: 0;
 `
 const InfoDateText = styled.p`
-  /* font-weight: bold; */
   color: #00254d;
   margin: 0;
 `
@@ -43,27 +40,20 @@ const InfoBox = styled.span`
   flex-direction: row;
   justify-items: center;
   align-items: center;
-  /* flex-wrap: wrap; */
   width: 70%;
 `
 
 const EventsPage = (props) => {
-  const test = () => {
-
-  }
-
   return (
-    <EventContainer >
+    <EventContainer>
       <EventTypeBox>
         <InfoTitleText>{capitalize(humanizeEventType(props.event_type))}</InfoTitleText>
         <InfoDateText>{moment(props.timestamp).format('MMMM Do YYYY, h:mm:ss a')}</InfoDateText>
       </EventTypeBox>
       <InfoBox>
-        {/* <InfoText title="ID" value={props.id}/> */}
 
         <InfoText title="Observed" value={props.observed}/>
 
-        {/* fluid_intake */}
         <InfoText title="Fluid" value={props.fluid} />
         <InfoText title="Consumed Volume Ml" value={props.consumed_volume_ml} />
 
@@ -88,10 +78,7 @@ const EventsPage = (props) => {
 
         <InfoText title="Medication Failure Reason" value={props.medication_failure_reason} />
         <InfoText title="Note" value={props.note} />
-
-
       </InfoBox>
-
     </ EventContainer>
   )
 }

@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchEvents } from "../store/actions/events";
+import React from "react";
 import styled from "styled-components";
 import moment from 'moment';
 import {capitalize} from '../utils/stringHelper'
@@ -9,7 +7,6 @@ const InfoTextBox = styled.div`
   flex: 30%;
   margin: 5px;
   margin-left: 10px;
-
 `;
 
 const Title = styled.p`
@@ -33,7 +30,7 @@ const InfoText = (props) => {
 
   if (props.value)
     return (
-      <InfoTextBox >
+      <InfoTextBox>
         <Title>{props.title}:</Title> 
         {printValue()}
       </InfoTextBox>

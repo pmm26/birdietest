@@ -1,14 +1,12 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
 import {
-  fetchFirstPage,
+  initEventFetch,
   fetchPage,
   setDate,
   setOrder,
   setEventType,
 } from "../store/actions/events";
 import {capitalize, humanizeEventType} from '../utils/stringHelper'
-
 
 const useEvent = (eventsState, dispatch) => {
 
@@ -62,12 +60,22 @@ const useEvent = (eventsState, dispatch) => {
     dispatch(setDate(data));
   };
 
+  const loadNextPage = () => {
+    dispatch(fetchPage());
+  };
+
+  const initFetch = () => {
+    dispatch(initEventFetch());
+  }
+
     return [
       eventTypeOptions,
       orderOptions,
       changeEventType,
       changeOrder,
-      changeDates
+      changeDates,
+      loadNextPage,
+      initFetch
     ]
 
 }
