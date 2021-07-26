@@ -20,15 +20,15 @@ const InfoText = (props) => {
 
   const printValue = () => {
     if (typeof props.value == 'boolean') {
-      return props.value ? "Yes" : "No"
+      return (props.value ? "Yes" : "No")
     } else if (props.date) {
-      return moment(props.value).format('MMMM Do YYYY, h:mm:ss a')
+      return moment(props.value).format('Do MMMM YYYY, h:mm:ss a')
     } else {
       return capitalize(props.value)
     }
   }
 
-  if (props.value)
+  if (props.value != null)
     return (
       <InfoTextBox>
         <Title>{props.title}:</Title> 

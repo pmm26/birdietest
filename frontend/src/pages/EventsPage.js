@@ -5,7 +5,7 @@ import EventEntry from "../components/EventEntry";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Select from "react-select";
 import DateRangePicker from "../components/DateRangePicker";
-import classes from "./Events.module.css";
+import classes from "./EventsPage.module.css";
 import useEvent from "../hooks/useEvent";
 import Button from "../components/Button";
 
