@@ -46,6 +46,10 @@ const EventsPage = (props) => {
     console.log(eventsState)
   }
 
+
+  const hasReachedLastPage = eventsState.currentPage == eventsState.maxPages
+  const hasNoResults = eventsState.currentPage > eventsState.maxPages
+
   return (
     <>
       {eventsState.error && (
@@ -87,18 +91,19 @@ const EventsPage = (props) => {
               <button onClick={initFetch} className={classes.Buttons}>Clear filters</button>
             </div>
 
+  
+
             <div className={classes.EventsContainer}>
               <h2 className={classes.Title}>Events</h2>
               <InfiniteScroll
                 dataLength={eventsState.events.length} //This is important field to render the next data
                 next={loadNextPage}
-                hasMore={
-                  !(eventsState.events.currentPage < eventsState.events.maxPages)
-                }
+                hasMore={!(hasReachedLastPage || hasNoResults)}
                 loader={<h4>Loading...</h4>}
                 endMessage={
                   <p style={{ textAlign: "center" }}>
-                    <b>Yay! You have reached the end. Woop! Woop!</b>
+                    <div>No Results found!</div>
+                    <div>Looks like you have reached the end. Woop! Woop!</div>
                   </p>
                 }
               >
@@ -106,7 +111,7 @@ const EventsPage = (props) => {
                   <EventEntry {...element} key={element.id} />
                 ))}
               </InfiniteScroll>
-              {!(eventsState.events.currentPage < eventsState.events.maxPages) && (
+              {!(hasReachedLastPage || hasNoResults) && (
                 <button onClick={loadNextPage}>Load More</button>
               )}
             </div>

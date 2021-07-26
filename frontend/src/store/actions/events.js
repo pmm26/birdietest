@@ -127,7 +127,7 @@ const getParams = ({ filters }) => {
     params["dates[start_date]"] = moment(filters.dates[0]).format("YYYY/MM/DD");
     params["dates[end_date]"] = moment(filters.dates[1]).format("YYYY/MM/DD");
   }
-  console.log(params)
+
   return params;
 };
 
