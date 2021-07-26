@@ -52,7 +52,7 @@ module.exports = class Events {
 
       // End Date
       if (dates.end_date) {
-        sqlQuery += ` AND DATE(timestamp) <= ? `;
+        sqlQuery += ` AND DATE(timestamp) < ? `;
       }
 
       sqlQuery += ")";

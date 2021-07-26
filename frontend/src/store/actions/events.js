@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from "moment";
 
 export const INIT = "INIT";
 export const FETCH_EVENTS = "FETCH_EVENTS";
@@ -54,8 +55,20 @@ const fetchNewFilter = (eventsState) => {
 };
 
 export const setDate = (dates) => {
-  return { type: SET_DATE, dates: dates };
-};
+  return async (dispatch, getState) => {
+    try {
+      dispatch({ type: SET_DATE, dates: dates });
+      const pageResults = await fetchNewFilter(getState().events);
+      dispatch({
+        type: FETCH_EVENTS,
+        events: pageResults.data.data,
+        maxPages: pageResults.data.max_pages,
+      });
+    } catch (err) {
+      dispatch(errorHandler(err));
+    }
+  }
+}
 
 
 export const setOrder = (select) => {
@@ -110,6 +123,11 @@ const getParams = ({ filters }) => {
   if (filters.eventType && filters.eventType.value !== "all_event_types")
     params["filter[event_type]"] = filters.eventType.value;
 
+  if (filters.dateFiltering) {
+    params["dates[start_date]"] = moment(filters.dates[0]).format("YYYY/MM/DD");
+    params["dates[end_date]"] = moment(filters.dates[1]).format("YYYY/MM/DD");
+  }
+  console.log(params)
   return params;
 };
 
@@ -123,8 +141,8 @@ const fetchEvents = (params = {}) => {
 const sendRequest = (method, url, data) => {
   const dataOrParams = ["GET", "DELETE"].includes(method) ? "params" : "data";
   return axios({
-    // url: "http://birdieapi.prck.me" + url,
-    url: "http://localhost:8000" + url,
+    url: "http://birdieapi.prck.me" + url,
+    // url: "http://localhost:8000" + url,
     method: method,
     [dataOrParams]: data,
     headers: {

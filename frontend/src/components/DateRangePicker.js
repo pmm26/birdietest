@@ -6,16 +6,9 @@ import { Manager, Reference, Popper } from "react-popper";
 import classes from './DatePicker.module.css'
 const DateRangePicker = (props) => {
 
-  const inicializeDate = (dateString) => {
-    if (dateString)
-      return moment(dateString).toDate()
-    else
-      return null;
-  }
-
   let refer = useRef(null);
-  const [date, setDate] = useState([inicializeDate(props.start_date.value), inicializeDate(props.end_date.value)]);
   const [open, setOpen] = useState(false);
+
 
   const toggleDatePicker = () => {
     if (!props.disabled)
@@ -23,9 +16,7 @@ const DateRangePicker = (props) => {
   };
 
   const onChange = newDate => {
-    setDate(newDate);
     toggleDatePicker()
-    // Sending the event back to the parent component.
     if (props.onChange)
       props.onChange(newDate)
   };
@@ -35,11 +26,18 @@ const DateRangePicker = (props) => {
     else return "";
   };
 
-  const formatDates = date => {
-    if (date[0] && date[1]) return `${formatDate(date[0])} - ${formatDate(date[1])}`;
+  const formatDates = () => {
+    if (props.start_date && props.end_date) return `${formatDate(props.start_date)} - ${formatDate(props.end_date)}`;
     else return "";
   };
 
+  const displayText = () => {
+    if (props.dateFiltering) {
+      return formatDates()
+    } else {
+      return ""
+    }
+  }
   const assignRef = (element, ref) => {
     refer.current = element
     ref(element)
@@ -54,13 +52,11 @@ const DateRangePicker = (props) => {
               <input
                 ref={(element) => assignRef(element, ref)}
                 className={[classes.Input, "css-yk16xz-control"].join(' ')} 
-                onClick={toggleDatePicker}
-                value={formatDates(date)}
+                value={displayText()}
                 onClick={toggleDatePicker}
                 onChange={() => {}} //shut up pls
-                placeholder={"Select dates"}
+                placeholder={"Select a date range"}
                   />
-                {/* <div className="invalid-feedback">Title can't be blank</div> */}
             </span>
           )}
         </Reference>
@@ -76,13 +72,13 @@ const DateRangePicker = (props) => {
                   <Calendar
                     selectRange={true}
                     onChange={onChange}
-                    value={date}
+                    value={[props.start_date, props.end_date]}
                     view="month"
                     minDetail="month"
                   />
                 </div>
               </ClickOutside>
-            ) || null;
+            );
           }}
         </Popper>
       </Manager>
@@ -95,11 +91,7 @@ const app = props => (<DateRangePicker {...props}/>);
 export default app;
 
 DateRangePicker.defaultProps = {
-  start_date: {
-    value: new Date()
-  },
-  end_date: {
-    value: new Date()
-  },
+  start_date: new Date(),
+  end_date: new Date(),
   onChange: () => {console.log('Provide on change')}
 };

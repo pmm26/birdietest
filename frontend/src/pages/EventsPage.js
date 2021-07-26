@@ -31,8 +31,9 @@ const EventsPage = (props) => {
     dispatch(fetchPage());
   };
   const initFetch = () => {
+    console.log(eventsState.filters)
     dispatch(initEventFetch());
-
+    console.log(eventsState.filters)
   }
 
   useEffect(() => {
@@ -56,7 +57,7 @@ const EventsPage = (props) => {
               <span className={classes.EventType}>
                 <p className={classes.OrderText}>Event Type:</p>
                 <Select
-                  // value={selectedOption}
+                  value={eventsState.filters.eventType}
                   defaultValue={eventTypeOptions[0]}
                   onChange={changeEventType}
                   options={eventTypeOptions}
@@ -67,7 +68,7 @@ const EventsPage = (props) => {
                 <p className={classes.OrderText}>Order:</p>
                 <Select
                   defaultValue={orderOptions[0]}
-                  // value={selectedOption}
+                  value={eventsState.filters.order}
                   onChange={changeOrder}
                   options={orderOptions}
                 />
@@ -77,8 +78,9 @@ const EventsPage = (props) => {
               <span className={classes.DatePicker}>
                 <p className={classes.OrderText}>Date Range:</p>
                 <DateRangePicker
-                  start_date={{ value: eventsState.filters.dates[0] }}
-                  end_date={{ value: eventsState.filters.dates[1] }}
+                  start_date={eventsState.filters.dates[0]}
+                  end_date={eventsState.filters.dates[1]}
+                  filtering={eventsState.filters.dateFiltering}
                   onChange={changeDates}
                 />
               </span>

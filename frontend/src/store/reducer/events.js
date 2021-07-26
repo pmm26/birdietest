@@ -1,4 +1,5 @@
 import {INIT, FETCH_EVENTS, FETCH_PAGE, SET_DATE, SET_ORDER, SET_EVENT_TYPE, ERROR} from '../actions/events'
+import moment from "moment";
 
 const initialState = {
   firstLoad: false,
@@ -8,6 +9,7 @@ const initialState = {
   filters: {
     eventType: null,
     order: null,
+    dateFiltering: false,
     dates: [new Date(), new Date()]
   },
   error: null
@@ -22,7 +24,7 @@ const reducer = (state = initialState, action) => {
     case FETCH_EVENTS:
         return {...state, events: action.events, maxPages: action.maxPages, currentPage: 1, firstLoad: true};
     case SET_DATE:
-        return {...state, filters: {...state.filters, dates: action.dates}};
+        return {...state, filters: {...state.filters, dates: action.dates, dateFiltering: true}};
     case SET_ORDER:
         return {...state, filters: {...state.filters, order: action.select}};
     case SET_EVENT_TYPE:
