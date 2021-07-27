@@ -1,8 +1,7 @@
 
-I saw this test as a way to display my knowledge and practice so I've decided to include a bit of everything. 
-In the end is not a perfect project there is always room for improvement. 
+This project includes a few more features than those requested. 
+I saw it as oppurtunity to display my knowledge and a way to get a refresh on some technologies I haven't used in a while.
 
-While some of the features included in this project weren't asked in the tests I decided to do my best and include a bit of everything that I know. As a way to display my abilities but also as a good practice. 
 
 # What you will find on this project
 
@@ -13,7 +12,7 @@ http://birdie.prck.me/
 - Pagination with new content loading as you scroll
 - Filtering options
 - Tests
-### What I would be improvided given the time
+### What I would improvided given the time
 - Styling
 - Typescript
 - File organization
@@ -23,9 +22,9 @@ http://birdie.prck.me/
 http://birdieapi.prck.me/api-documentation/
 - Mysql2
 - OpenAPI 3.0 with Swagger Ui
-- API with API KEY: bierdiekey
+- API with API KEY: birdiekey
 - Tests
-### What I would be improvided given the time
+### What I would improvided given the time
 - Having a Test database or having a mocks of the database.
 - Used Sequelize to facilitate SQL query building.
 - If I were to do it again I would have gone for a more standart aprouch without the express-openapi packge and instead I would have used the using express-openapi-validator package to validade requests and responses.
@@ -34,14 +33,12 @@ http://birdieapi.prck.me/api-documentation/
 https://gitlab.com/xdpedrox/birdietest/-/pipelines
 - Builds 2 image for font and backend.
 - Deploys images to DigitalOcean kubernetes.
-### What I would be improvided given the time
+### What I would improvided given the time
 - Add a testing step before deployment to insure the app is working as expected before deployment.
+- Got SSL to work properly with a LetsEncrypt Certificate
 
 <br /> 
 <br /> 
-
-
-
 
 # Birdie Developer Test
 

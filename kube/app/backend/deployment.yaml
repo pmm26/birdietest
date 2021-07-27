@@ -26,12 +26,6 @@ spec:
           env:
             - name: API_KEY
               value: birdiekey
-            - name: DB_HOST
-              value: birdie-test.cyosireearno.eu-west-2.rds.amazonaws.com
-            - name: DB_NAME
-              value: birdietest
-            - name: DB_PASS
-              value: xnxPp6QfZbCYkY8
             - name: DB_USER
               value: test-read
             - name: PORT
