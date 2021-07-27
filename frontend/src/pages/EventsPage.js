@@ -80,10 +80,10 @@ const EventsPage = (props) => {
           hasMore={hasMorePages}
           loader={<h4>Loading...</h4>}
           endMessage={
-            <dic style={{ textAlign: "center" }}>
+            <div style={{ textAlign: "center" }}>
               <p>No Results found!</p>
               <p>Looks like you have reached the end. Woop! Woop!</p>
-            </dic>
+            </div>
           }
         >
           {eventsState.events.map((element) => (
